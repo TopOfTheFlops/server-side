@@ -291,6 +291,16 @@ If the operation succeeds you will receive a success message back as follows:
 
 - `[DELETE]` a flop by id
 
+| Method | Endpoint | Usage | Returns |
+| ------ | -------- | ----- | ------- |
+| POST   | `api/v1/flops/remove/:id` | Remove and individual flop | Success message |
+
+* This action is IRREVERSIBLE
+
+* On success, the HTTP status code in the response header is 200 ('OK').
+* In case of server error, the header status code is a 5xx error code and the response body contains an error object.
+
+Using this endpoint you can remove an individual flop by the ID.
 
 ## Error messages and meanings
 
