@@ -27,7 +27,7 @@ The get request will return an object with the key "lifestyles", containing an a
       "lifestyles":
         [
           {
-            "lifestyleID": 54,
+            "lifestyleId": 54,
             "title": "Most Aesthetically pleasing Lasangna",
             "description": "All lasagnas should be beautiful and don't fall in on themselves",
             "flops": [
@@ -46,7 +46,7 @@ The get request will return an object with the key "lifestyles", containing an a
             ]
           },
           {
-            "lifestyleID": 23,
+            "lifestyleId": 23,
             "title": "Best beard hairdresser",
             "description": "Beards are very important",
             "flops": [
@@ -84,7 +84,7 @@ The get request will return an object with the key "user", containing an object 
 ```JSON
 {
   "user": {
-    "userID": 23,
+    "userId": 23,
     "name": "Lord Master",
     "profilePic": "imgur.com/sdhklfh",
     "bio": "I am good at many things"
@@ -180,7 +180,7 @@ If the operation succeeds you will receive a success message back as follows:
   "success":
     {
       "message": "Lifestyle board created succesfully",
-      "lifestyleID": 253
+      "lifestyleId": 253
     }
 }
 ```
