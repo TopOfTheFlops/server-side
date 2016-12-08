@@ -7,6 +7,10 @@ This API will allow you to authenticate and interact with the Top Of the Flops d
 ## Endpoints
 - `[GET]` all lifestyles on the page
 
+| Method | Endpoint | Usage | Returns |
+| ------ | -------- | ----- | ------- |
+| GET    | `/v1/lifestyles` | Get all lifestyles | Lifestyles object containing Array |
+
 * On success, the HTTP status code in the response header is 200 ('OK').  
 * In case of server error, the header status code is a 5xx error code and the response body contains an error object.  
 
@@ -57,14 +61,6 @@ The get request will return an object with the key "lifestyles", containing an a
         ]
     }
 ```
-
-
-### Get a cat by ID
-
-| Method | Endpoint | Usage | Returns |
-| ------ | -------- | ----- | ------- |
-| GET    | `/v1/lifestyles` | Get all lifestyles | Lifestyles object containing Array |
-
 
 - `[GET]` a flopper
 - `[GET]` authenticate a flopper
