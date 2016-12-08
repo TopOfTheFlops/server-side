@@ -109,7 +109,7 @@ The get request will return an object with the key "user", containing an object 
 | ------ | -------- | ----- | ------- |
 | POST   | `api/v1/users` | Post the username and password | Success object / Error |
 
-* On success, the HTTP status code in the response header is 201 ('Created').
+* On success, the HTTP status code in the response header is 200 ('OK').
 * If the authentication is unssucessful you will receive a 401 error message ('Unauthorized')
 * In case of server error, the header status code is a 5xx error code and the response body contains an error object.
 
@@ -119,6 +119,28 @@ In order to get a user to login to the website you will have to post a request t
 {
   username: "micky",
   password: "shklah33##"
+}
+```
+
+In case of successful login you will receive an object containing the user information:
+
+```JSON
+{
+  "user": {
+    "userId": 23,
+    "username": "micky",
+    "name": "Lord Master",
+    "profilePic": "imgur.com/sdhklfh",
+    "bio": "I am good at many things"
+  }
+}
+```
+
+If the authentication is unssucessful you will receive the following error:
+
+```JSON
+{
+  "error": "unssucessful login"
 }
 ```
 
