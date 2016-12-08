@@ -76,6 +76,63 @@ The get request will return an object with the key "lifestyles", containing an a
     }
 ```
 
+### GET all flops (posts)
+
+- `[GET]` all flops on the page
+
+| Method | Endpoint | Usage | Returns |
+| ------ | -------- | ----- | ------- |
+| GET    | `api/v1/flops` | Get all flops | Flops object containing Array |
+
+* On success, the HTTP status code in the response header is 200 ('OK').  
+* In case of server error, the header status code is a 5xx error code and the response body contains an error object.  
+
+The get request will return an object with the key "flops", containing an array of individual flop objects.
+
+
+```Json
+    {
+      "flops": [
+        {
+          "flopId": 12,
+          "userId": 132,
+          "mediaURL": "http://google.com",
+          "description": "This is my best Lasangna currently",
+          "upvotes": 34,
+          "downvotes": 1,
+          "lifestyleId":54
+        },
+        {
+          "flopId": 2,
+          "userId": 18,
+          "mediaURL": "imgur.com/jksdhfl",
+          "description": "Behold the most perfect lasagna",
+          "upvotes": 34,
+          "downvotes": 1,
+          "lifestyleId":54
+        },
+        {
+          "flopId": 298,
+          "userId": 32,
+          "mediaURL": "imgur.com/hkdskj",
+          "description": "Beards are my passion",
+          "upvotes": 34,
+          "downvotes": 1,
+          "lifestyleId":23
+        },
+        {
+          "flopId": 328,
+          "userId": 18,
+          "mediaURL": "imgur.com/hkdskjjkh",
+          "description": "Beards are also my passion",
+          "upvotes": 34,
+          "downvotes": 1,
+          "lifestyleId":23
+        }
+      ]
+    }
+```
+
 ### GET a flopper (user)
 
 - `[GET]` a flopper
@@ -107,9 +164,9 @@ The get request will return an object with the key "user", containing an object 
 
 | Method | Endpoint | Usage | Returns |
 | ------ | -------- | ----- | ------- |
-| POST   | `api/v1/users` | Post the username and password | Success object / Error |
+| POST   | `api/v1/users/login` | Post the username and password | Success object / Error |
 
-* On success, the HTTP status code in the response header is 201 ('Created').
+* On success, the HTTP status code in the response header is 200 ('OK').
 * If the authentication is unssucessful you will receive a 401 error message ('Unauthorized')
 * In case of server error, the header status code is a 5xx error code and the response body contains an error object.
 
@@ -122,9 +179,39 @@ In order to get a user to login to the website you will have to post a request t
 }
 ```
 
+In case of successful login you will receive an object containing the user information:
+
+```JSON
+{
+  "user": {
+    "userId": 23,
+    "username": "micky",
+    "name": "Lord Master",
+    "profilePic": "imgur.com/sdhklfh",
+    "bio": "I am good at many things"
+  }
+}
+```
+
+If the authentication is unssucessful you will receive the following error:
+
+```JSON
+{
+  "error": "unssucessful login"
+}
+```
+
 ### Signup a new flopper (user)
 
 - `[POST]` create a new flopper
+
+| Method | Endpoint | Usage | Returns |
+| ------ | -------- | ----- | ------- |
+| POST   | `api/v1/users/signup` | Creates a brand new user | Success object / Error |
+
+* On success, the HTTP status code in the response header is 200 ('OK').
+* If the authentication is unssucessful you will receive a 401 error message ('Unauthorized')
+* In case of server error, the header status code is a 5xx error code and the response body contains an error object.
 
 ### POST vote to a particular flop post
 
