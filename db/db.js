@@ -2,16 +2,16 @@ var Knex = require('knex')
 var knexConfig = require('../knexfile')[process.env.NODE_ENV || 'development']
 var knex = Knex(knexConfig)
 
-function getAllLifestyles() {
-  return knex('lifestyles')
-}
+const getAllLifestyles = () => knex('lifestyles')
 
-function getAllFlops() {
-  return knex('flops')
-}
 
+const getAllFlops = () => knex('flops')
+
+
+const getUser = (id) => knex('users').where('userId', id)
 
 module.exports = {
   getAllLifestyles,
-  getAllFlops
+  getAllFlops,
+  getUser
 }

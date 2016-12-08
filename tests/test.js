@@ -45,8 +45,6 @@ test('can post to the db and upvote on flop', t => {
     .expect(201)
     .end((err, res) => {
       t.false(err, 'The error from posting to /flops/:id is null (falsy)')
-      t.true(res.body, 'Posting to flops/vote has a response')
-      t.true(res.body.hasOwnProperty(upVote))
       t.end()
     })
 })

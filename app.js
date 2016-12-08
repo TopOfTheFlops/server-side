@@ -13,7 +13,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser())
 
-app.use('/api/v1/users', users)
+app.use('/api/v1/users/:id', users)
 app.use('/api/v1/lifestyles', lifestyles)
 app.use('/api/v1/flops', flops)
 
