@@ -68,7 +68,7 @@ The get request will return an object with the key "lifestyles", containing an a
     }
 ```
 
-### GET all flopper (user)
+### GET a flopper (user)
 
 - `[GET]` a flopper
 
