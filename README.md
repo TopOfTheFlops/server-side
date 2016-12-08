@@ -32,14 +32,14 @@ The get request will return an object with the key "lifestyles", containing an a
             "description": "All lasagnas should be beautiful and don't fall in on themselves",
             "flops": [
               {
-                "flopID": 12,
-                "userID": 132,
+                "flopId": 12,
+                "userId": 132,
                 "mediaURL": "http://google.com",
                 "description": "This is my best Lasangna currently"
               },
               {
-                "flopID": 2,
-                "userID": 18,
+                "flopId": 2,
+                "userId": 18,
                 "mediaURL": "imgur.com/jksdhfl",
                 "description": "Behold the most perfect lasagna"
               },
@@ -51,14 +51,14 @@ The get request will return an object with the key "lifestyles", containing an a
             "description": "Beards are very important",
             "flops": [
               {
-                "flopID": 298,
-                "userID": 32,
+                "flopId": 298,
+                "userId": 32,
                 "mediaURL": "imgur.com/hkdskj",
                 "description": "Beards are my passion"
               },
               {
-                "flopID": 328,
-                "userID": 18,
+                "flopId": 328,
+                "userId": 18,
                 "mediaURL": "imgur.com/hkdskjjkh",
                 "description": "Beards are also my passion"
               },
@@ -83,16 +83,34 @@ The get request will return an object with the key "user", containing an object 
 
 ```JSON
 {
-  "userID": 23,
-  "name": "Lord Master",
-  "profilePic": "imgur.com/sdhklfh",
-  "bio": "I am good at many things"
+  "user": {
+    "userID": 23,
+    "name": "Lord Master",
+    "profilePic": "imgur.com/sdhklfh",
+    "bio": "I am good at many things"
+  }
 }
 ```
 
-### Authenticate a flopper
+### Authenticate a flopper (user)
 
-- `[GET]` authenticate a flopper
+- `[POST]` authenticate a flopper
+
+| Method | Endpoint | Usage | Returns |
+| ------ | -------- | ----- | ------- |
+| POST   | `/v1/users` | Post the username and password | Success object / Error |
+
+* On success, the HTTP status code in the response header is 201 ('Created').
+* If the authentication is unssucessful you will receive a 401 error message ('Unauthorized')
+* In case of server error, the header status code is a 5xx error code and the response body contains an error object.
+
+In order to get a user to login to the website you will have to post a request that includes de following information on the body:
+
+
+
+### Signup a new flopper (user)
+
+- `[POST]` create a new flopper
 
 ### POST vote to a particular flop post
 
@@ -100,7 +118,7 @@ The get request will return an object with the key "user", containing an object 
 
 | Method | Endpoint | Usage | Returns |
 | ------ | -------- | ----- | ------- |
-| POST    | `/v1/flops/:id` | Post the vote count for a particular flop | Success object |
+| POST    | `/v1/flops/vote` | Post the vote count for a particular flop | Success object |
 
 * On success, the HTTP status code in the response header is 201 ('Created').  
 * In case of server error, the header status code is a 5xx error code and the response body contains an error object.  
@@ -109,13 +127,15 @@ In order to upvote or downvote a post you will have to send a request which incl
 
 ```javascript
 {
-  action: "upvote"
+  action: "upvote",
+  flopId: 367
 }
 ```
 or
 ```javascript
 {
-  action: "downvote"
+  action: "downvote",
+  flopId: 23
 }
 ```
 
@@ -179,8 +199,9 @@ If the operation succeeds you will receive a success message back as follows:
 
 - `[POST]` create a new flop
 
+### DELETE to remove a flop by ID
 
-<!-- - `[DELETE]` a flop by id -->
+- `[DELETE]` a flop by id
 
 
 ## Error messages and meanings
