@@ -13,3 +13,14 @@ test('can get the lifestyles from /api/v1/lifestyles', t => {
       t.end()
     })
 })
+
+test('can get the flops from /api/v1/flops', t => {
+  request(app)
+    .get('/api/v1/flops')
+    .end((err, res) => {
+      t.false(err, 'The error from the /flops is null (flasy)')
+      t.true(res, 'The response from /flops is truthy')
+      t.true(res.body.hasOwnProperty('flops'), 'There is a /flops property returned from /flops')
+      t.end()
+    })
+})

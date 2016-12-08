@@ -6,11 +6,11 @@ function getAllLifestyles() {
   return knex('lifestyles')
 }
 
-function getAllPosts() {
-  return knex('posts')
+function getAllFlops() {
+  return knex('flops')
 }
 
 module.exports = {
   getAllLifestyles,
-  getAllPosts
+  getAllFlops
 }
