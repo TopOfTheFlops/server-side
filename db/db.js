@@ -10,6 +10,7 @@ function getAllFlops() {
   return knex('flops')
 }
 
+
 module.exports = {
   getAllLifestyles,
   getAllFlops

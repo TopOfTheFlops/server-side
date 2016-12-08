@@ -3,7 +3,7 @@ var router = express.Router()
 var getAllLifestyles = require('../db/db').getAllLifestyles
 
 /* GET users listing. */
-router.get('/', function(req, res, next) {
+router.get('/', function(req, res) {
   getAllLifestyles()
   .then(function(lifestyles){
     return res.json({lifestyles})
