@@ -173,9 +173,22 @@ If the authentication is unssucessful you will receive the following error:
 | ------ | -------- | ----- | ------- |
 | POST   | `api/v1/users/signup` | Creates a brand new user | Success object / Error |
 
-* On success, the HTTP status code in the response header is 200 ('OK').
-* If the authentication is unssucessful you will receive a 401 error message ('Unauthorized')
+* On success, the HTTP status code in the response header is 201 ('Created').
 * In case of server error, the header status code is a 5xx error code and the response body contains an error object.
+
+To create a new user, the API is expecting an object on the body of the request that contains the following information:
+
+```JSON
+{
+  "newUser": {
+    "username": "gabulina",
+    "name": "Gabita Genia",
+    "profilePic": "imgur.com/sdhklfhhjk",
+    "bio": "I like voting for stuff"
+  }
+}
+```
+If the request is successful you will receive a success code 201
 
 ### POST vote to a particular flop post
 
