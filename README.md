@@ -115,7 +115,12 @@ The get request will return an object with the key "user", containing an object 
 
 In order to get a user to login to the website you will have to post a request that includes de following information on the body:
 
-
+```javascript
+{
+  username: "micky",
+  password: "shklah33##"
+}
+```
 
 ### Signup a new flopper (user)
 
@@ -127,7 +132,7 @@ In order to get a user to login to the website you will have to post a request t
 
 | Method | Endpoint | Usage | Returns |
 | ------ | -------- | ----- | ------- |
-| POST    | `api/v1/flops/vote` | Post the vote count for a particular flop | Success object |
+| POST    | `api/v1/flops/vote` | Post the vote count for a particular flop | Success message |
 
 * On success, the HTTP status code in the response header is 201 ('Created').  
 * In case of server error, the header status code is a 5xx error code and the response body contains an error object.  
