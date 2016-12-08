@@ -4,6 +4,7 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
 var users = require('./routes/users');
+var lifestyles = require('./routes/lifestyles')
 
 var app = express();
 
@@ -11,6 +12,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser())
 
-app.use('/api/v1/users', users);
+app.use('/api/v1/users', users)
+app.use('/api/v1/lifestyles', lifestyles)
 
 module.exports = app;
