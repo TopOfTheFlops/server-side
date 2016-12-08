@@ -3,7 +3,7 @@ var test = require('tape')
 
 var app = require('../app')
 
-test('can get the lifestyles from /api/v1/lifestyles', t => {
+test('Can get the lifestyles from /api/v1/lifestyles', t => {
   request(app)
     .get('/api/v1/lifestyles')
     .expect(200)
@@ -15,7 +15,7 @@ test('can get the lifestyles from /api/v1/lifestyles', t => {
     })
 })
 
-test('can get the flops from /api/v1/flops', t => {
+test('Can get the flops from /api/v1/flops', t => {
   request(app)
   .get('/api/v1/flops')
   .end((err, res) => {
@@ -26,30 +26,31 @@ test('can get the flops from /api/v1/flops', t => {
   })
 })
 
-test('can get a user from /api/v1/users/:id', t => {
+test('Can get a user from /api/v1/users/:id', t => {
   request(app)
     .get('/api/v1/users/1')
     .expect(200)
     .end((err, res) => {
       t.false(err, 'The error from the /users is null (flasy)')
       t.true(res, 'The response from /users is truthy')
-      t.true(res.body.hasOwnProperty('name'), 'Get from users/:id comes back with an object ')
+      t.true(res.body.user.hasOwnProperty('name'), 'Get from users/:id comes back with an object ')
       t.end()
     })
 })
 
-test('can post to the db and upvote on flop', t => {
+test('Can post to the db and upvote on flop', t => {
   request(app)
     .post('/api/v1/flops/vote')
-    .send({action: 'upVotes', flopId: 1, lifestyleId: 1})
+    .send({action: 'upvote', flopId: 1})
     .expect(201)
     .end((err, res) => {
       t.false(err, 'The error from posting to /flops/:id is null (falsy)')
+      t.true(res, 'The response from posting flops/vote is truthy')
       t.end()
     })
 })
 
-test('can post to the db and add a new lifestyle', t => {
+test('Can post to the db and add a new lifestyle', t => {
   request(app)
     .post('/api/v1/lifestyle')
     .expected(201)
@@ -59,7 +60,7 @@ test('can post to the db and add a new lifestyle', t => {
     })
 })
 
-test('can post to the db and add a new flop', t => {
+test('Can post to the db and add a new flop', t => {
   request(app)
     .post('/api/v1/flops')
     .expected(201)

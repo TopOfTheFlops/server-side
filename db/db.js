@@ -4,14 +4,15 @@ var knex = Knex(knexConfig)
 
 const getAllLifestyles = () => knex('lifestyles')
 
-
 const getAllFlops = () => knex('flops')
 
+const getAllUsers = () => knex('users')
 
-const getUser = (id) => knex('users').where('userId', id)
+const getUserById = (id) => knex.select('userId', 'username', 'name', 'profilePic', 'bio').from('users').where('userId', id)
 
 module.exports = {
   getAllLifestyles,
   getAllFlops,
-  getUser
+  getAllUsers,
+  getUserById
 }
