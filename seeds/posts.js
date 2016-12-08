@@ -5,8 +5,8 @@ exports.seed = function(knex, Promise) {
     .then(function () {
       return Promise.all([
         // Inserts seed entries
-        knex('flops').insert({id: 1, lifestyleId: 1, flopperId: 1, upvote: 2, downvote: 1, media: 'asdfagskld'}),
-        knex('flops').insert({id: 2, lifestyleId: 2, flopperId: 2, upvote: 5, downvote: 1, media: 'dklagj'})
+        knex('flops').insert({id: 1, lifestyleId: 1, userId: 1, upvotes: 2, downvotes: 1, mediaURL: 'asdfagskld'}),
+        knex('flops').insert({id: 2, lifestyleId: 2, userId: 2, upvotes: 5, downvotes: 1, mediaURL: 'dklagj'})
       ]);
     });
 };
