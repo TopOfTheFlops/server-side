@@ -74,7 +74,7 @@ The get request will return an object with the key "lifestyles", containing an a
 
 | Method | Endpoint | Usage | Returns |
 | ------ | -------- | ----- | ------- |
-| GET    | `/v1/floppers/:id` | Get one user information | User object |
+| GET    | `/v1/users/:id` | Get one user information | User object |
 
 * On success, the HTTP status code in the response header is 200 ('OK').  
 * In case of server error, the header status code is a 5xx error code and the response body contains an error object.  
@@ -126,7 +126,7 @@ If the operation succeeds you will receive a success message back as follows:
   "success":
     [
       {
-        "message": "Voted casted succesfully",
+        "message": "Voted casted succesfully"
       },
       {
         "code": 201
@@ -136,9 +136,44 @@ If the operation succeeds you will receive a success message back as follows:
 ```
 
 
-### POST to create a new Lifestyle
+### POST to create a new Lifestyle (competition category)
 
 - `[POST]` create a new lifestyle
+
+| Method | Endpoint | Usage | Returns |
+| ------ | -------- | ----- | ------- |
+| POST    | `/v1/lifestyles` | Create a new category on the competition | Success object |
+
+* On success, the HTTP status code in the response header is 201 ('Created').  
+* In case of server error, the header status code is a 5xx error code and the response body contains an error object.
+
+In order to add a new category to the competition you will have to send a request which includes the information in the body:
+
+```javascript
+{
+  newLifestyle: {
+    title: "Perfect banana peel",
+    description: "Aim to peel a banana and have 0 strings left on it"
+  }
+}
+```
+
+If the operation succeeds you will receive a success message back as follows:
+
+```js
+{
+  "success":
+    [
+      {
+        "message": "Lifestyle board created succesfully",
+        "lifestyleID": 253
+      },
+      {
+        "code": 201
+      }
+    ]
+}
+```
 
 ### POST to create a new flop
 
