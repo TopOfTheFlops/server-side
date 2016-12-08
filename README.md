@@ -35,13 +35,17 @@ The get request will return an object with the key "lifestyles", containing an a
                 "flopId": 12,
                 "userId": 132,
                 "mediaURL": "http://google.com",
-                "description": "This is my best Lasangna currently"
+                "description": "This is my best Lasangna currently",
+                "upvotes": 34,
+                "downvotes": 1
               },
               {
                 "flopId": 2,
                 "userId": 18,
                 "mediaURL": "imgur.com/jksdhfl",
-                "description": "Behold the most perfect lasagna"
+                "description": "Behold the most perfect lasagna",
+                "upvotes": 34,
+                "downvotes": 1
               },
             ]
           },
@@ -54,13 +58,17 @@ The get request will return an object with the key "lifestyles", containing an a
                 "flopId": 298,
                 "userId": 32,
                 "mediaURL": "imgur.com/hkdskj",
-                "description": "Beards are my passion"
+                "description": "Beards are my passion",
+                "upvotes": 34,
+                "downvotes": 1
               },
               {
                 "flopId": 328,
                 "userId": 18,
                 "mediaURL": "imgur.com/hkdskjjkh",
-                "description": "Beards are also my passion"
+                "description": "Beards are also my passion",
+                "upvotes": 34,
+                "downvotes": 1
               },
             ]
           }
@@ -85,6 +93,7 @@ The get request will return an object with the key "user", containing an object 
 {
   "user": {
     "userId": 23,
+    "username": "micky",
     "name": "Lord Master",
     "profilePic": "imgur.com/sdhklfh",
     "bio": "I am good at many things"
@@ -106,7 +115,12 @@ The get request will return an object with the key "user", containing an object 
 
 In order to get a user to login to the website you will have to post a request that includes de following information on the body:
 
-
+```javascript
+{
+  username: "micky",
+  password: "shklah33##"
+}
+```
 
 ### Signup a new flopper (user)
 
@@ -118,7 +132,7 @@ In order to get a user to login to the website you will have to post a request t
 
 | Method | Endpoint | Usage | Returns |
 | ------ | -------- | ----- | ------- |
-| POST    | `api/v1/flops/vote` | Post the vote count for a particular flop | Success object |
+| POST    | `api/v1/flops/vote` | Post the vote count for a particular flop | Success message |
 
 * On success, the HTTP status code in the response header is 201 ('Created').  
 * In case of server error, the header status code is a 5xx error code and the response body contains an error object.  
@@ -138,18 +152,6 @@ or
   flopId: 23
 }
 ```
-
-If the operation succeeds you will receive a success message back as follows:
-
-```js
-{
-  "success":
-    {
-      "message": "Voted casted succesfully"
-    }
-}
-```
-
 
 ### POST to create a new Lifestyle (competition category)
 
@@ -195,22 +197,6 @@ If the operation succeeds you will receive a success message back as follows:
 
 
 ## Error messages and meanings
-
-When the API returns error messages, it does so in JSON format. For example it might look like this:
-
-```js
-{
-  "error":
-    [
-      {
-        "message": "The format for entering a new entry to the database is not correct, please find the correct format on out documentation and try again",
-      },
-      {
-        "code": 400
-      }
-    ]
-}
-```
 
 Possible errors:
 
