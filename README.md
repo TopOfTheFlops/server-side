@@ -14,7 +14,7 @@ All the API responses come as JSON objects.
 
 | Method | Endpoint | Usage | Returns |
 | ------ | -------- | ----- | ------- |
-| GET    | `/v1/lifestyles` | Get all lifestyles | Lifestyles object containing Array |
+| GET    | `api/v1/lifestyles` | Get all lifestyles | Lifestyles object containing Array |
 
 * On success, the HTTP status code in the response header is 200 ('OK').  
 * In case of server error, the header status code is a 5xx error code and the response body contains an error object.  
@@ -74,7 +74,7 @@ The get request will return an object with the key "lifestyles", containing an a
 
 | Method | Endpoint | Usage | Returns |
 | ------ | -------- | ----- | ------- |
-| GET    | `/v1/users/:id` | Get one user information | User object |
+| GET    | `api/v1/users/:id` | Get one user information | User object |
 
 * On success, the HTTP status code in the response header is 200 ('OK').  
 * In case of server error, the header status code is a 5xx error code and the response body contains an error object.  
@@ -98,7 +98,7 @@ The get request will return an object with the key "user", containing an object 
 
 | Method | Endpoint | Usage | Returns |
 | ------ | -------- | ----- | ------- |
-| POST   | `/v1/users` | Post the username and password | Success object / Error |
+| POST   | `api/v1/users` | Post the username and password | Success object / Error |
 
 * On success, the HTTP status code in the response header is 201 ('Created').
 * If the authentication is unssucessful you will receive a 401 error message ('Unauthorized')
@@ -118,7 +118,7 @@ In order to get a user to login to the website you will have to post a request t
 
 | Method | Endpoint | Usage | Returns |
 | ------ | -------- | ----- | ------- |
-| POST    | `/v1/flops/vote` | Post the vote count for a particular flop | Success object |
+| POST    | `api/v1/flops/vote` | Post the vote count for a particular flop | Success object |
 
 * On success, the HTTP status code in the response header is 201 ('Created').  
 * In case of server error, the header status code is a 5xx error code and the response body contains an error object.  
@@ -144,14 +144,9 @@ If the operation succeeds you will receive a success message back as follows:
 ```js
 {
   "success":
-    [
-      {
-        "message": "Voted casted succesfully"
-      },
-      {
-        "code": 201
-      }
-    ]
+    {
+      "message": "Voted casted succesfully"
+    }
 }
 ```
 
@@ -162,7 +157,7 @@ If the operation succeeds you will receive a success message back as follows:
 
 | Method | Endpoint | Usage | Returns |
 | ------ | -------- | ----- | ------- |
-| POST    | `/v1/lifestyles` | Create a new category on the competition | Success object |
+| POST    | `api/v1/lifestyles` | Create a new category on the competition | Success object |
 
 * On success, the HTTP status code in the response header is 201 ('Created').  
 * In case of server error, the header status code is a 5xx error code and the response body contains an error object.
@@ -183,15 +178,10 @@ If the operation succeeds you will receive a success message back as follows:
 ```js
 {
   "success":
-    [
-      {
-        "message": "Lifestyle board created succesfully",
-        "lifestyleID": 253
-      },
-      {
-        "code": 201
-      }
-    ]
+    {
+      "message": "Lifestyle board created succesfully",
+      "lifestyleID": 253
+    }
 }
 ```
 
