@@ -23,57 +23,21 @@ The get request will return an object with the key "lifestyles", containing an a
 
 
 ```Json
-    {
-      "lifestyles":
-        [
-          {
-            "lifestyleId": 54,
-            "title": "Most Aesthetically pleasing Lasangna",
-            "description": "All lasagnas should be beautiful and don't fall in on themselves",
-            "flops": [
-              {
-                "flopId": 12,
-                "userId": 132,
-                "mediaURL": "http://google.com",
-                "description": "This is my best Lasangna currently",
-                "upvotes": 34,
-                "downvotes": 1
-              },
-              {
-                "flopId": 2,
-                "userId": 18,
-                "mediaURL": "imgur.com/jksdhfl",
-                "description": "Behold the most perfect lasagna",
-                "upvotes": 34,
-                "downvotes": 1
-              },
-            ]
-          },
-          {
-            "lifestyleId": 23,
-            "title": "Best beard hairdresser",
-            "description": "Beards are very important",
-            "flops": [
-              {
-                "flopId": 298,
-                "userId": 32,
-                "mediaURL": "imgur.com/hkdskj",
-                "description": "Beards are my passion",
-                "upvotes": 34,
-                "downvotes": 1
-              },
-              {
-                "flopId": 328,
-                "userId": 18,
-                "mediaURL": "imgur.com/hkdskjjkh",
-                "description": "Beards are also my passion",
-                "upvotes": 34,
-                "downvotes": 1
-              },
-            ]
-          }
-        ]
-    }
+{
+  "lifestyles":
+    [
+      {
+        "lifestyleId": 54,
+        "title": "Most Aesthetically pleasing Lasangna",
+        "description": "All lasagnas should be beautiful and don't fall in on themselves",
+      },
+      {
+        "lifestyleId": 23,
+        "title": "Best beard hairdresser",
+        "description": "Beards are very important",
+      }
+    ]
+}
 ```
 
 ### GET all flops (posts)
@@ -91,46 +55,46 @@ The get request will return an object with the key "flops", containing an array 
 
 
 ```Json
+{
+  "flops": [
     {
-      "flops": [
-        {
-          "flopId": 12,
-          "userId": 132,
-          "mediaURL": "http://google.com",
-          "description": "This is my best Lasangna currently",
-          "upvotes": 34,
-          "downvotes": 1,
-          "lifestyleId":54
-        },
-        {
-          "flopId": 2,
-          "userId": 18,
-          "mediaURL": "imgur.com/jksdhfl",
-          "description": "Behold the most perfect lasagna",
-          "upvotes": 34,
-          "downvotes": 1,
-          "lifestyleId":54
-        },
-        {
-          "flopId": 298,
-          "userId": 32,
-          "mediaURL": "imgur.com/hkdskj",
-          "description": "Beards are my passion",
-          "upvotes": 34,
-          "downvotes": 1,
-          "lifestyleId":23
-        },
-        {
-          "flopId": 328,
-          "userId": 18,
-          "mediaURL": "imgur.com/hkdskjjkh",
-          "description": "Beards are also my passion",
-          "upvotes": 34,
-          "downvotes": 1,
-          "lifestyleId":23
-        }
-      ]
+      "flopId": 12,
+      "userId": 132,
+      "mediaURL": "http://google.com",
+      "description": "This is my best Lasangna currently",
+      "upvotes": 34,
+      "downvotes": 1,
+      "lifestyleId":54
+    },
+    {
+      "flopId": 2,
+      "userId": 18,
+      "mediaURL": "imgur.com/jksdhfl",
+      "description": "Behold the most perfect lasagna",
+      "upvotes": 34,
+      "downvotes": 1,
+      "lifestyleId":54
+    },
+    {
+      "flopId": 298,
+      "userId": 32,
+      "mediaURL": "imgur.com/hkdskj",
+      "description": "Beards are my passion",
+      "upvotes": 34,
+      "downvotes": 1,
+      "lifestyleId":23
+    },
+    {
+      "flopId": 328,
+      "userId": 18,
+      "mediaURL": "imgur.com/hkdskjjkh",
+      "description": "Beards are also my passion",
+      "upvotes": 34,
+      "downvotes": 1,
+      "lifestyleId":23
     }
+  ]
+}
 ```
 
 ### GET a flopper (user)
