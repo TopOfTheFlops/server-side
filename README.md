@@ -102,14 +102,36 @@ The get request will return an object with the key "user", containing an object 
 | ------ | -------- | ----- | ------- |
 | POST    | `/v1/flops/:id` | Post the vote count for a particular flop | Success object |
 
-* On success, the HTTP status code in the response header is 200 ('OK').  
+* On success, the HTTP status code in the response header is 201 ('Created').  
 * In case of server error, the header status code is a 5xx error code and the response body contains an error object.  
 
 In order to upvote or downvote a post you will have to send a request which includes the action in the body as in the following example:
 
 ```javascript
 {
-  
+  action: "upvote"
+}
+```
+or
+```javascript
+{
+  action: "downvote"
+}
+```
+
+If the operation succeeds you will receive a success message back as follows:
+
+```js
+{
+  "success":
+    [
+      {
+        "message": "Voted casted succesfully",
+      },
+      {
+        "code": 201
+      }
+    ]
 }
 ```
 
@@ -124,3 +146,30 @@ In order to upvote or downvote a post you will have to send a request which incl
 
 
 <!-- - `[DELETE]` a flop by id -->
+
+
+## Error messages and meanings
+
+When the API returns error messages, it does so in JSON format. For example it might look like this:
+
+```js
+{
+  "error":
+    [
+      {
+        "message": "The format for entering a new entry to the database is not correct, please find the correct format on out documentation and try again",
+      },
+      {
+        "code": 400
+      }
+    ]
+}
+```
+
+Possible errors:
+
+Error code | Description
+-----------|----------------------------------------------
+503        | The server is currently unavailable (because it is overloaded or down for maintenance)
+400        | Bad Request. The request was invalid.
+404        | Not Found. The URL request is invalid or does not exist.
