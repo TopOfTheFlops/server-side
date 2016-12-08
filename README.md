@@ -2,7 +2,9 @@
 
 ## Summary
 
-This API will allow you to authenticate and interact with the Top Of the Flops database, obtain all flops, post new flops, upvote and downvote.  
+This API will allow you to authenticate and interact with the Top Of the Flops database, obtain all flops, post new flops, upvote and downvote.
+
+All the API responses come as JSON objects
 
 ## Endpoints
 - `[GET]` all lifestyles on the page
@@ -15,6 +17,7 @@ This API will allow you to authenticate and interact with the Top Of the Flops d
 * In case of server error, the header status code is a 5xx error code and the response body contains an error object.  
 
 The get request will return an object with the key "lifestyles", containing an array of individual lifestyle objects.
+
 
 ```Json
     {
@@ -63,6 +66,25 @@ The get request will return an object with the key "lifestyles", containing an a
 ```
 
 - `[GET]` a flopper
+
+| Method | Endpoint | Usage | Returns |
+| ------ | -------- | ----- | ------- |
+| GET    | `/v1/floppers/:id` | Get one user information | User object |
+
+* On success, the HTTP status code in the response header is 200 ('OK').  
+* In case of server error, the header status code is a 5xx error code and the response body contains an error object.  
+
+The get request will return an object with the key "user", containing an object with some specific user information.
+
+```JSON
+{
+  "userID": 23,
+  "name": "Lord Master",
+  "profilePic": "imgur.com/sdhklfh",
+  "bio": "I am good at many things"
+}
+```
+
 - `[GET]` authenticate a flopper
 - `[POST]` a vote to a flop
 - `[POST]` create a new lifestyle
