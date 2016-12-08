@@ -217,12 +217,10 @@ To create a new user, the API is expecting an object on the body of the request 
 
 ```js
 {
-  newUser: {
-    username: "gabulina",
-    name: "Gabita Genia",
-    profilePic: "imgur.com/sdhklfhhjk",
-    bio: "I like voting for stuff"
-  }
+  username: "gabulina",
+  name: "Gabita Genia",
+  profilePic: "imgur.com/sdhklfhhjk",
+  bio: "I like voting for stuff"
 }
 ```
 If the request is successful you will receive a success code 201
