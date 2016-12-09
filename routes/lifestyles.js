@@ -32,7 +32,6 @@ router.post('/', function (req, res) {
       res.status(500)
       console.log(err)
     })
-
 })
 
 module.exports = router
