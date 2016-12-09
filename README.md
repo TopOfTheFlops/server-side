@@ -6,6 +6,35 @@ This API will allow you to authenticate and interact with the Top Of the Flops d
 
 All the API responses come as JSON objects.
 
+### Authenticatiion
+
+Some of the API endpoints require authentication:
+
+| Method | Endpoint | Requires Auth |
+| ------ | -------- | ------------- |
+| GET    | `api/v1/lifestyles` | NO |
+| GET    | `api/v1/flops`      | NO |
+| GET    | `api/v1/users/:id`  | NO |
+| POST   | `api/v1/users/login` | NO |
+| POST   | `api/v1/users/signup` | NO |
+| POST   | `api/v1/flops/vote` | YES |
+| POST   | `api/v1/lifestyles` | YES |
+| POST   | `api/v1/flops`     | YES |
+| POST   | `api/v1/flops/remove/:id` | YES |
+
+If the authentication fails the API will respond with the following error:
+
+```JSON
+{
+  "error":
+    {
+      "type": "auth",
+      "code": 401,
+      "message": "authentication failed"
+    }
+}
+```
+
 ## Endpoints
 
 ### GET all lifestyles
@@ -60,6 +89,8 @@ The get request will return an object with the key "flops", containing an array 
     {
       "flopId": 12,
       "userId": 132,
+      "username": "karlll",
+      "profilePic": "imgur.com/hjksdhfk",
       "mediaURL": "http://google.com",
       "description": "This is my best Lasangna currently",
       "upvotes": 34,
@@ -69,6 +100,8 @@ The get request will return an object with the key "flops", containing an array 
     {
       "flopId": 2,
       "userId": 18,
+      "username": "micky",
+      "profilePic": "imgur.com/hjksdhfk",
       "mediaURL": "imgur.com/jksdhfl",
       "description": "Behold the most perfect lasagna",
       "upvotes": 34,
@@ -78,6 +111,8 @@ The get request will return an object with the key "flops", containing an array 
     {
       "flopId": 298,
       "userId": 32,
+      "username": "banana",
+      "profilePic": "imgur.com/hjksdhfk",
       "mediaURL": "imgur.com/hkdskj",
       "description": "Beards are my passion",
       "upvotes": 34,
@@ -87,6 +122,8 @@ The get request will return an object with the key "flops", containing an array 
     {
       "flopId": 328,
       "userId": 18,
+      "username": "micky",
+      "profilePic": "imgur.com/hjksdhfk",
       "mediaURL": "imgur.com/hkdskjjkh",
       "description": "Beards are also my passion",
       "upvotes": 34,
@@ -180,12 +217,10 @@ To create a new user, the API is expecting an object on the body of the request 
 
 ```js
 {
-  newUser: {
-    username: "gabulina",
-    name: "Gabita Genia",
-    profilePic: "imgur.com/sdhklfhhjk",
-    bio: "I like voting for stuff"
-  }
+  username: "gabulina",
+  name: "Gabita Genia",
+  profilePic: "imgur.com/sdhklfhhjk",
+  bio: "I like voting for stuff"
 }
 ```
 If the request is successful you will receive a success code 201
@@ -277,7 +312,7 @@ In order to add a new post (flop) to the competition you will have to send a req
 
 If the operation succeeds you will receive a success message back as follows:
 
-```js
+```JSON
 {
   "success":
     {
