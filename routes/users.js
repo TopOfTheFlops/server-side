@@ -21,12 +21,6 @@ router.get('/', function (req, res) {
 
 // POST to create a new user
 router.post('/signup', function (req, res) {
-  console.log("req.body", req.body)
-  // signupNewUser(req.body)
-  //   .then(function(response){
-  //     console.log("user added to the db");
-  //     res.send(201)
-  //   })
   getUserByUsername(req.body.username)
     .then(function(user){
       if(user.length !== 0){
