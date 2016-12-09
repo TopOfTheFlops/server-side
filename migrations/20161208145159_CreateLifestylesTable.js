@@ -4,6 +4,7 @@ exports.up = function(knex, Promise) {
     table.increments('lifestyleId')
     table.string('title')
     table.string('description')
+    table.string('media')
   })
 };
 
