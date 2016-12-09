@@ -4,6 +4,7 @@ var getAllFlops = require('../db/db').getAllFlops
 var upvoteByFlopId = require('../db/db').upvoteByFlopId
 var downvoteByFlopId = require('../db/db').downvoteByFlopId
 var addNewFlop = require('../db/db').addNewFlop
+var deleteFlop = require('../db/db').deleteFlop
 
 /* GET users listing. */
 router.get('/', function (req, res) {
@@ -49,6 +50,17 @@ router.post('/', function (req, res) {
             "flopId": response[0]
           }
       })
+    })
+    .catch((err) => {
+      res.status(500)
+      console.log(err)
+    })
+})
+
+router.post('/remove/:id', function (req, res) {
+  deleteFlop(req.params.id)
+    .then(function(response) {
+      return res.status(200).send('flop deleted successfully')
     })
     .catch((err) => {
       res.status(500)
