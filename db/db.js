@@ -22,6 +22,8 @@ const addNewLifestyle = (newLifestyle) => knex('lifestyles').returning('lifestyl
 
 const addNewFlop = (newFlop) => knex('flops').returning('flopId').insert(newFlop)
 
+const deleteFlop = (flopId) => knex('flops').where('flopId', flopId).del()
+
 module.exports = {
   getAllLifestyles,
   getAllFlops,
@@ -32,5 +34,6 @@ module.exports = {
   upvoteByFlopId,
   downvoteByFlopId,
   addNewLifestyle,
-  addNewFlop
+  addNewFlop,
+  deleteFlop
 }
