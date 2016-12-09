@@ -53,9 +53,16 @@ test('Can post to the db and upvote on flop', t => {
 test('Can post to the db and add a new lifestyle', t => {
   request(app)
     .post('/api/v1/lifestyle')
-    .expected(201)
+    .send({
+      title: "Perfect banana peel",
+      description: "Aim to peel a banana and have 0 strings left on it",
+      media: "imgur.com/dgsjkfg"
+    })
+    .expect(201)
     .end((err, res) => {
-      t.false(err, 'The error from posting to /lifestyle is null (falsy)')
+      // console.log("test error", err);
+      // t.false(err, 'The error from posting to /lifestyle is null (falsy)')
+      t.true(res, 'The response from posting to lifestyles is truthy')
       t.end()
     })
 })
@@ -63,9 +70,16 @@ test('Can post to the db and add a new lifestyle', t => {
 test('Can post to the db and add a new flop', t => {
   request(app)
     .post('/api/v1/flops')
-    .expected(201)
+    .send({
+      userId: 32,
+      mediaURL: "imgur.com/hkdskj",
+      description: "I can do this with my eyes closed",
+      lifestyleId:23
+    })
+    .expect(201)
     .end((err, res) => {
       t.false(err, 'The error from posting to /flops is null (falsy)')
+      t.true(res, 'The response from posting to flops to add a new one is truthy')
       t.end()
     })
 })

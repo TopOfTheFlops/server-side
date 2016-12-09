@@ -16,6 +16,7 @@ router.get('/', function (req, res) {
     })
 })
 
+//POST upvote and downvotes
 router.post('/vote', function (req, res) {
   console.log('Voting req.body', req.body)
   if (req.body.action === 'upvote') {

@@ -20,6 +20,8 @@ const upvoteByFlopId = (flopId) => knex('flops').where('flopId', flopId).increme
 
 const downvoteByFlopId = (flopId) => knex('flops').where('flopId', flopId).increment('downvotes', 1)
 
+const addNewLifestyle = (newLifestyle) => knex('lifestyles').returning('lifestyleId').insert(newLifestyle)
+
 module.exports = {
   getAllLifestyles,
   getAllFlops,
@@ -28,5 +30,6 @@ module.exports = {
   getUserByUsername,
   signupNewUser,
   upvoteByFlopId,
-  downvoteByFlopId
+  downvoteByFlopId,
+  addNewLifestyle
 }

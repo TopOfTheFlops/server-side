@@ -265,10 +265,9 @@ In order to add a new category to the competition you will have to send a reques
 
 ```javascript
 {
-  newLifestyle: {
-    title: "Perfect banana peel",
-    description: "Aim to peel a banana and have 0 strings left on it"
-  }
+  title: "Perfect banana peel",
+  description: "Aim to peel a banana and have 0 strings left on it",
+  media: "imgur.com/dgsjkfg"
 }
 ```
 
@@ -299,12 +298,10 @@ In order to add a new post (flop) to the competition you will have to send a req
 
 ```javascript
 {
-  newFlop: {
-    userId: 32,
-    mediaURL: "imgur.com/hkdskj",
-    description: "I can do this with my eyes closed",
-    lifestyleId:23
-  }
+  userId: 32,
+  mediaURL: "imgur.com/hkdskj",
+  description: "I can do this with my eyes closed",
+  lifestyleId:23
 }
 ```
 
