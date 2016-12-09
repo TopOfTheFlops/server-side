@@ -7,7 +7,7 @@ var db = require('../db/db')
 passport.use(new Strategy(function (username, password, done){
   db.getUserByUsername(username)
     .then(function(user){
-      if(user.lenght === 0){
+      if(user.length === 0){
         done(null, false, { message: 'Incorrect username'})
       } else {
         hasher.checkHash(password, user[0].password, function(valid){

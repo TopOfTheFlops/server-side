@@ -1,5 +1,6 @@
-const express = require('express');
-const router = express.Router();
+const express = require('express')
+const router = express.Router()
+const hasher = require('../auth/hasher')
 const getUserById = require('../db/db').getUserById
 const getAllUsers = require('../db/db').getAllUsers
 const signupNewUser = require('../db/db').signupNewUser
@@ -26,11 +27,14 @@ router.post('/signup', function (req, res) {
       if(user.length !== 0){
         throw new Error('This username is already taken')
       } else {
-        return signupNewUser(req.body)
+        hasher.hash(req.body.password, function (hashedPassword){
+          signupNewUser({ username: req.body.username, password: hashedPassword, name: req.body.name, profilePic: req.body.profilePic, bio: req.body.bio})
+            .then(function(response){
+              return res.status(201).send("User account created")
+            })
+        })
+        // return signupNewUser(req.body)
       }
-    })
-    .then(function(response){
-      res.status(201).send("User account created")
     })
     .catch(function(err){
       res.status(500).json({error: "There was an error creating this user"})
