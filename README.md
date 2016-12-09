@@ -59,11 +59,13 @@ The get request will return an object with the key "lifestyles", containing an a
         "lifestyleId": 54,
         "title": "Most Aesthetically pleasing Lasangna",
         "description": "All lasagnas should be beautiful and don't fall in on themselves",
+        "media": "imgur.com/kidsyhfl"
       },
       {
         "lifestyleId": 23,
         "title": "Best beard hairdresser",
         "description": "Beards are very important",
+        "media": "imgur.com/kidsyhfl"
       }
     ]
 }
