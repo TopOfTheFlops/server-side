@@ -22,23 +22,24 @@ router.get('/', function (req, res) {
 // POST to create a new user
 router.post('/signup', function (req, res) {
   console.log("req.body", req.body)
+  // signupNewUser(req.body)
+  //   .then(function(response){
+  //     console.log("user added to the db");
+  //     res.send(201)
+  //   })
   getUserByUsername(req.body.username)
     .then(function(user){
-      console.log("Inside the getUserByUsername function");
       if(user.length !== 0){
-        res.send("Username already exists")
+        throw new Error('This username is already taken')
       } else {
-        console.log('Inside the else statement');
-        signupNewUser(req.body)
+        return signupNewUser(req.body)
       }
     })
-    .then(function(){
-      console.log("Inside the signupNewUser function");
-      // console.log(dbRes);
+    .then(function(response){
       res.status(201).send("User account created")
     })
     .catch(function(err){
-      res.status(500).send(err)
+      res.status(500).json({error: "The username is already taken"})
     })
 })
 

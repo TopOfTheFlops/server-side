@@ -12,7 +12,9 @@ const getUserById = (id) => knex.select('userId', 'username', 'name', 'profilePi
 
 const getUserByUsername = (username) => knex('users').where('username', username)
 
-const signupNewUser = (userInfo) => knex('users').insert(userInfo)
+const signupNewUser = (userInfo) => {
+  return knex('users').insert(userInfo)
+}
 
 const upvoteByFlopId = (flopId) => knex('flops').where('flopId', flopId).increment('upvotes', 1)
 
