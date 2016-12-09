@@ -19,7 +19,10 @@ router.post('/vote', function (req, res) {
   console.log('Voting req.body', req.body)
   if (req.body.action === 'upvote') {
     upvoteByFlopId(req.body.flopId)
-      .then(response => res.send('Success'))
+      .then(response => {
+        console.log(response);
+        return res.send('Success')
+      })
       .catch(error => console.log(error))
   }
 })
