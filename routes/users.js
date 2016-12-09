@@ -33,7 +33,7 @@ router.post('/signup', function (req, res) {
       res.status(201).send("User account created")
     })
     .catch(function(err){
-      res.status(500).json({error: "The username is already taken"})
+      res.status(500).json({error: "There was an error creating this user"})
     })
 })
 
