@@ -4,7 +4,7 @@ var knex = Knex(knexConfig)
 
 const getAllLifestyles = () => knex('lifestyles')
 
-const getAllFlops = () => knex('flops')
+const getAllFlops = () => knex.select('flopId', 'lifestyleId', 'flops.userId', 'username', 'upvotes', 'downvotes', 'mediaURL', 'description').from('flops').leftJoin('users', 'flops.userId', 'users.userId')
 
 const getAllUsers = () => knex('users')
 
@@ -18,6 +18,10 @@ const signupNewUser = (userInfo) => {
 
 const upvoteByFlopId = (flopId) => knex('flops').where('flopId', flopId).increment('upvotes', 1)
 
+const downvoteByFlopId = (flopId) => knex('flops').where('flopId', flopId).increment('downvotes', 1)
+
+const addNewLifestyle = (newLifestyle) => knex('lifestyles').returning('lifestyleId').insert(newLifestyle)
+
 module.exports = {
   getAllLifestyles,
   getAllFlops,
@@ -25,5 +29,7 @@ module.exports = {
   getUserById,
   getUserByUsername,
   signupNewUser,
-  upvoteByFlopId
+  upvoteByFlopId,
+  downvoteByFlopId,
+  addNewLifestyle
 }
