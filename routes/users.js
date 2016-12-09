@@ -3,7 +3,9 @@ const router = express.Router();
 const getUserById = require('../db/db').getUserById
 const getAllUsers = require('../db/db').getAllUsers
 const signupNewUser = require('../db/db').signupNewUser
+const getUserByUsername = require('../db/db').getUserByUsername
 
+//GET all users
 router.get('/', function (req, res) {
   getAllUsers()
     .then(response => {
@@ -17,11 +19,22 @@ router.get('/', function (req, res) {
     })
 })
 
-router.post('/', function (req, res) {
-  var userToAdd =
-  signupNewUser(req.body)
-    .then(response => res.send('Adding user succesful'))
-    .catch(error => res.send('Error'))
+// POST to create a new user
+router.post('/signup', function (req, res) {
+  getUserByUsername(req.body.username)
+    .then(function(user){
+      if(user.length !== 0){
+        throw new Error('This username is already taken')
+      } else {
+        return signupNewUser(req.body)
+      }
+    })
+    .then(function(response){
+      res.status(201).send("User account created")
+    })
+    .catch(function(err){
+      res.status(500).json({error: "The username is already taken"})
+    })
 })
 
 /* GET users listing. */
