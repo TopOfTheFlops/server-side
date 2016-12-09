@@ -216,6 +216,7 @@ To create a new user, the API is expecting an object on the body of the request 
 ```js
 {
   username: "gabulina",
+  password: "bananas"
   name: "Gabita Genia",
   profilePic: "imgur.com/sdhklfhhjk",
   bio: "I like voting for stuff"
