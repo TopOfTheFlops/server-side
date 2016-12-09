@@ -1,7 +1,7 @@
 
-exports.up = function(knex, Promise) {
-  return knex.schema.createTableIfNotExists('flops', function(table){
-    table.increments('id')
+exports.up = function (knex, Promise) {
+  return knex.schema.createTableIfNotExists('flops', function (table) {
+    table.increments('flopId')
     table.integer('lifestyleId')
     table.integer('userId')
     table.integer('upvotes')
@@ -9,8 +9,8 @@ exports.up = function(knex, Promise) {
     table.string('mediaURL')
     table.string('description')
   })
-};
+}
 
-exports.down = function(knex, Promise) {
+exports.down = function (knex, Promise) {
   return knex.schema.dropTableIfExists('flops')
-};
+}

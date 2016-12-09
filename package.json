@@ -13,7 +13,8 @@
     "express": "~4.13.1",
     "knex": "^0.12.6",
     "nodemon": "^1.11.0",
-    "pg": "^6.1.0"
+    "pg": "^npm6.1.0",
+    "sqlite3": "^3.1.8"
   },
   "devDependencies": {
     "supertest": "^2.0.1",
