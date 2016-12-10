@@ -64,10 +64,7 @@ router.post('/login', passport.authenticate('local'), function (req, res) {
 
 //GET to logout an user
 router.get('/logout', function(req, res){
-  console.log(req.user);
-  console.log('before logout');
   req.logOut()
-  console.log('user logged out');
   res.send('User logged out')
 })
 

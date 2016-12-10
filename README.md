@@ -21,6 +21,7 @@ Some of the API endpoints require authentication:
 | POST   | `api/v1/lifestyles` | YES |
 | POST   | `api/v1/flops`     | YES |
 | POST   | `api/v1/flops/remove/:id` | YES |
+| GET   | `api/v1/users/logout` | NO |
 
 If the authentication fails the API will respond with the following error:
 
@@ -332,6 +333,19 @@ If the operation succeeds you will receive a success message back as follows:
 * In case of server error, the header status code is a 5xx error code and the response body contains an error object.
 
 Using this endpoint you can remove an individual flop by the ID.
+
+### GET to log out a user
+
+- `[GET]` a flop by id
+
+| Method | Endpoint | Usage | Returns |
+| ------ | -------- | ----- | ------- |
+| GET   | `api/v1/users/logout` | Logout current user | Success message |
+
+* On success, the HTTP status code in the response header is 200 ('OK').
+* In case of server error, the header status code is a 5xx error code and the response body contains an error object.
+
+If a user is currently logged in this will delete the session details from the browser.
 
 ## Error messages and meanings
 
