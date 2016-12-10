@@ -40,8 +40,8 @@ router.post('/vote', ensureAuthenticated, function (req, res, next) {
   }
 })
 
-//Create a new flop
-router.post('/', function (req, res) {
+//POST Create a new flop
+router.post('/', ensureAuthenticated, function (req, res) {
   // console.log(req.body);
   addNewFlop(req.body)
     .then(function(response) {
@@ -59,8 +59,8 @@ router.post('/', function (req, res) {
     })
 })
 
-//Remove a flop
-router.post('/remove/:id', function (req, res) {
+//POST Remove a flop
+router.post('/remove/:id', ensureAuthenticated, function (req, res) {
   deleteFlop(req.params.id)
     .then(function(response) {
       return res.status(200).send('flop deleted successfully')
