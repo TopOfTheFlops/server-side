@@ -59,7 +59,13 @@ router.get('/:id', function(req, res) {
 
 //POST to login
 router.post('/login', passport.authenticate('local'), function (req, res) {
-  res.send('Login successful')
+  getUserByUsername(req.body.username)
+    .then(function(user){
+      res.json({ user: user[0]})
+    })
+    .catch(function(error){
+      res.json({error: "Error retrieving user from db"})
+    })
 })
 
 //GET to logout an user
