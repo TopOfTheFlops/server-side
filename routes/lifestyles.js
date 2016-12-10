@@ -16,7 +16,7 @@ router.get('/', function (req, res) {
 })
 
 //POST a new lifestyle
-router.post('/', function (req, res) {
+router.post('/', ensureAuthenticated, function (req, res) {
   // console.log(req.body);
   addNewLifestyle(req.body)
     .then(function(response) {
@@ -33,5 +33,19 @@ router.post('/', function (req, res) {
       console.log(err)
     })
 })
+
+function ensureAuthenticated (req, res, next) {
+  if (req.isAuthenticated()) {
+    return next()
+  }
+  return res.json({
+    "error":
+      {
+        "type": "auth",
+        "code": 401,
+        "message": "authentication failed"
+      }
+  })
+}
 
 module.exports = router
