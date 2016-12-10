@@ -1,6 +1,7 @@
 const express = require('express')
 const router = express.Router()
 const hasher = require('../auth/hasher')
+const passport = require('../auth/passportSetup')
 const getUserById = require('../db/db').getUserById
 const getAllUsers = require('../db/db').getAllUsers
 const signupNewUser = require('../db/db').signupNewUser
@@ -53,6 +54,10 @@ router.get('/:id', function(req, res) {
     .catch(error => {
       res.status(500).send('Could not get user by id')
     })
-});
+})
+
+router.post('/login', passport.authenticate('local'), function (req, res) {
+  res.send('Login successful')
+})
 
 module.exports = router;
