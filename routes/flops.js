@@ -73,6 +73,7 @@ router.post('/remove/:id', ensureAuthenticated, function (req, res) {
 
 function ensureAuthenticated (req, res, next) {
   if (req.isAuthenticated()) {
+    console.log(req.user);
     return next()
   }
   return res.json({
