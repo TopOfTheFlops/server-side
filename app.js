@@ -11,10 +11,10 @@ var flops = require('./routes/flops')
 
 var app = express()
 
+app.use(cors())
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(cookieParser())
-app.use(cors())
 app.use(require('express-session')({ secret: 'the cake is a lie', resave: false, saveUninitialized: false }))
 app.use(passport.initialize())
 app.use(passport.session())
