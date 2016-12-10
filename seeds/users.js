@@ -5,9 +5,9 @@ exports.seed = function(knex, Promise) {
     .then(function () {
       return Promise.all([
         // Inserts seed entries
-        knex('users').insert({userId: 1, username: 'mikkeyfluttie', name: 'lordMaster', profilePic: 'https://placekitten.com/g/400/400', bio: 'I am cool man', password: 'poodle123'}),
-        knex('users').insert({userId: 2, username: 'helloKitty', name: 'Kitten Person', profilePic: 'https://placekitten.com/g/400/400', bio: 'I am cool man', password: 'poodle123'}),
-        knex('users').insert({userId: 3, username: 'George', name: 'Mr. George', profilePic: 'https://placekitten.com/g/400/400', bio: 'I am quite cool man', password: 'poodle123'})
+        knex('users').insert({userId: 1, username: 'mikkeyfluttie', name: 'lordMaster', profilePic: 'https://placekitten.com/g/400/400', bio: 'I am cool man', password: '$2a$10$xgKCJAf2UOZoGycgDXm3nOZwt42uvGv6.mzW1T7QRzwD/HzamQl2e'}),
+        knex('users').insert({userId: 2, username: 'helloKitty', name: 'Kitten Person', profilePic: 'https://placekitten.com/g/400/400', bio: 'I am cool man', password: '$2a$10$xgKCJAf2UOZoGycgDXm3nOZwt42uvGv6.mzW1T7QRzwD/HzamQl2e'}),
+        knex('users').insert({userId: 3, username: 'George', name: 'Mr. George', profilePic: 'https://placekitten.com/g/400/400', bio: 'I am quite cool man', password: '$2a$10$xgKCJAf2UOZoGycgDXm3nOZwt42uvGv6.mzW1T7QRzwD/HzamQl2e'})
       ]);
     });
 };
