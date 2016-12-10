@@ -72,8 +72,8 @@ router.post('/remove/:id', ensureAuthenticated, function (req, res) {
 })
 
 function ensureAuthenticated (req, res, next) {
+  console.log("Request user from client side:", req.user);
   if (req.isAuthenticated()) {
-    console.log(req.user);
     return next()
   }
   return res.json({
