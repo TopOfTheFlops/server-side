@@ -1,5 +1,6 @@
 var express = require('express')
 var router = express.Router()
+// var ensureAuthenticated = ('../auth/ensureAuthenticated').ensureAuthenticated
 var getAllFlops = require('../db/db').getAllFlops
 var upvoteByFlopId = require('../db/db').upvoteByFlopId
 var downvoteByFlopId = require('../db/db').downvoteByFlopId
@@ -19,7 +20,7 @@ router.get('/', function (req, res) {
 })
 
 //POST upvote and downvotes
-router.post('/vote', function (req, res) {
+router.post('/vote', ensureAuthenticated, function (req, res, next) {
   // console.log('Voting ody', req.body)
   if (req.body.action === 'upvote') {
     upvoteByFlopId(req.body.flopId)
@@ -39,6 +40,7 @@ router.post('/vote', function (req, res) {
   }
 })
 
+//Create a new flop
 router.post('/', function (req, res) {
   // console.log(req.body);
   addNewFlop(req.body)
@@ -57,6 +59,7 @@ router.post('/', function (req, res) {
     })
 })
 
+//Remove a flop
 router.post('/remove/:id', function (req, res) {
   deleteFlop(req.params.id)
     .then(function(response) {
@@ -67,5 +70,19 @@ router.post('/remove/:id', function (req, res) {
       console.log(err)
     })
 })
+
+function ensureAuthenticated (req, res, next) {
+  if (req.isAuthenticated()) {
+    return next()
+  }
+  return res.json({
+    "error":
+      {
+        "type": "auth",
+        "code": 401,
+        "message": "authentication failed"
+      }
+  })
+}
 
 module.exports = router
