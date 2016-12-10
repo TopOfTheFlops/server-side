@@ -1,5 +1,6 @@
 var express = require('express')
 var router = express.Router()
+// var ensureAuthenticated = ('../auth/ensureAuthenticated').ensureAuthenticated
 var getAllFlops = require('../db/db').getAllFlops
 var upvoteByFlopId = require('../db/db').upvoteByFlopId
 var downvoteByFlopId = require('../db/db').downvoteByFlopId
@@ -19,7 +20,7 @@ router.get('/', function (req, res) {
 })
 
 //POST upvote and downvotes
-router.post('/vote', function (req, res) {
+router.post('/vote', ensureAuthenticated, function (req, res, next) {
   // console.log('Voting ody', req.body)
   if (req.body.action === 'upvote') {
     upvoteByFlopId(req.body.flopId)
@@ -39,7 +40,8 @@ router.post('/vote', function (req, res) {
   }
 })
 
-router.post('/', function (req, res) {
+//POST Create a new flop
+router.post('/', ensureAuthenticated, function (req, res) {
   // console.log(req.body);
   addNewFlop(req.body)
     .then(function(response) {
@@ -57,7 +59,8 @@ router.post('/', function (req, res) {
     })
 })
 
-router.post('/remove/:id', function (req, res) {
+//POST Remove a flop
+router.post('/remove/:id', ensureAuthenticated, function (req, res) {
   deleteFlop(req.params.id)
     .then(function(response) {
       return res.status(200).send('flop deleted successfully')
@@ -67,5 +70,19 @@ router.post('/remove/:id', function (req, res) {
       console.log(err)
     })
 })
+
+function ensureAuthenticated (req, res, next) {
+  if (req.isAuthenticated()) {
+    return next()
+  }
+  return res.json({
+    "error":
+      {
+        "type": "auth",
+        "code": 401,
+        "message": "authentication failed"
+      }
+  })
+}
 
 module.exports = router

@@ -6,6 +6,7 @@ const getUserById = require('../db/db').getUserById
 const getAllUsers = require('../db/db').getAllUsers
 const signupNewUser = require('../db/db').signupNewUser
 const getUserByUsername = require('../db/db').getUserByUsername
+const Passport = require('passport')
 
 //GET all users
 router.get('/', function (req, res) {
@@ -56,8 +57,18 @@ router.get('/:id', function(req, res) {
     })
 })
 
+//POST to login
 router.post('/login', passport.authenticate('local'), function (req, res) {
   res.send('Login successful')
+})
+
+//GET to logout an user
+router.get('/logout', function(req, res){
+  console.log(req.user);
+  console.log('before logout');
+  req.logOut()
+  console.log('user logged out');
+  res.send('User logged out')
 })
 
 module.exports = router;

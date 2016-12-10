@@ -41,21 +41,3 @@ passport.deserializeUser(function (id, done){
 })
 
 module.exports = passport
-
-// passport.use(new Strategy((username, password, done) => {
-//   db.getUserByUsername(username, (err, user) => {
-//     if (err) return done(err)
-//     if (!user) return done(null, false)
-//     hasher.checkHash(password, user.password, (valid) => {
-//       if (valid) return done(null, user)
-//       return done(null, false)
-//     })
-//   })
-// }))
-
-// passport.deserializeUser((id, done) => {
-//   db.getUserById(id, (err, user) => {
-//     if (err) return done(err)
-//     done(null, user)
-//   })
-// })
