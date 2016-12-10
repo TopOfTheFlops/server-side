@@ -3,6 +3,12 @@ var path = require('path')
 var cookieParser = require('cookie-parser')
 var bodyParser = require('body-parser')
 var cors = require('cors')
+var corsOptions = {
+  origin: "*",
+  methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+  preflightContinue: false,
+  credentials: true
+}
 var passport = require('./auth/passportSetup')
 
 var users = require('./routes/users')
@@ -11,7 +17,7 @@ var flops = require('./routes/flops')
 
 var app = express()
 
-app.use(cors())
+app.use(cors(corsOptions))
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(cookieParser())
