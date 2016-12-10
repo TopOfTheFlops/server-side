@@ -4,7 +4,7 @@ var cookieParser = require('cookie-parser')
 var bodyParser = require('body-parser')
 var cors = require('cors')
 var corsOptions = {
-  origin: "*",
+  origin: true,
   methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
   preflightContinue: false,
   credentials: true
