@@ -13,6 +13,7 @@
     "cors": "^2.8.1",
     "express": "~4.13.1",
     "express-session": "^1.14.2",
+    "imgur": "^0.2.0",
     "knex": "^0.12.6",
     "nodemon": "^1.11.0",
     "passport": "^0.3.2",

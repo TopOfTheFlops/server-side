@@ -1,11 +1,12 @@
 var express = require('express')
 var router = express.Router()
-// var ensureAuthenticated = ('../auth/ensureAuthenticated').ensureAuthenticated
 var getAllFlops = require('../db/db').getAllFlops
 var upvoteByFlopId = require('../db/db').upvoteByFlopId
 var downvoteByFlopId = require('../db/db').downvoteByFlopId
 var addNewFlop = require('../db/db').addNewFlop
 var deleteFlop = require('../db/db').deleteFlop
+var convertToBase64 = require('../lib/imgurHandler').convertToBase64
+var uploadPhoto = require('../lib/imgurHandler').uploadPhoto
 
 /* GET users listing. */
 router.get('/', function (req, res) {
@@ -43,6 +44,7 @@ router.post('/vote', ensureAuthenticated, function (req, res, next) {
 //POST Create a new flop
 router.post('/', ensureAuthenticated, function (req, res) {
   // console.log(req.body);
+  console.log(convertToBase64(req.body.mediaFile))
   addNewFlop(req.body)
     .then(function(response) {
       return res.status(201).json({
