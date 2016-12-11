@@ -7,6 +7,8 @@ var addNewFlop = require('../db/db').addNewFlop
 var deleteFlop = require('../db/db').deleteFlop
 var convertToBase64 = require('../lib/imgurHandler').convertToBase64
 var uploadPhoto = require('../lib/imgurHandler').uploadPhoto
+var multer  = require('multer')
+var upload = multer({ dest: 'uploads' })
 
 /* GET users listing. */
 router.get('/', function (req, res) {
@@ -43,8 +45,6 @@ router.post('/vote', ensureAuthenticated, function (req, res, next) {
 
 //POST Create a new flop
 router.post('/', ensureAuthenticated, function (req, res) {
-  // console.log(req.body);
-  console.log("Convert to base 64", convertToBase64(req.body.mediaFile))
   addNewFlop(req.body)
     .then(function(response) {
       return res.status(201).json({
@@ -59,6 +59,14 @@ router.post('/', ensureAuthenticated, function (req, res) {
       res.status(500)
       console.log(err)
     })
+})
+
+//POST create photo
+router.post('/photo', upload.single('photo'), function(req, res){
+  // console.log("File comptlete req.body", req.body);
+  console.log("Req.file console:", req.file);
+
+  // console.log("Convert to base 64", convertToBase64(req.body.mediaFile))
 })
 
 //POST Remove a flop
