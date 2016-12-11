@@ -22,6 +22,7 @@ Some of the API endpoints require authentication:
 | POST   | `api/v1/flops`     | YES |
 | POST   | `api/v1/flops/remove/:id` | YES |
 | GET   | `api/v1/users/logout` | NO |
+| GET   | `api/v1/votes/:id` | NO |
 
 If the authentication fails the API will respond with the following error:
 
@@ -346,6 +347,52 @@ Using this endpoint you can remove an individual flop by the ID.
 * In case of server error, the header status code is a 5xx error code and the response body contains an error object.
 
 If a user is currently logged in this will delete the session details from the browser.
+
+### GET a particular user's votes
+
+- `[GET]` a user's votes by id
+
+| Method | Endpoint | Usage | Returns |
+| ------ | -------- | ----- | ------- |
+| GET   | `api/v1/votes/:id` | Get the votes of a particular user | Object containing IDs of flops voted on and whether they were voted up or down |
+
+* On success, the HTTP status code in the response header is 200 ('OK').  
+* In case of server error, the header status code is a 5xx error code and the response body contains an error object.  
+
+The get request will return an object with the key "votes", containing an array of objects that have info about the flopId and whether it was voted up or down.
+
+e.g. `api/v1/votes/2` where 2 is the user's id
+
+```JSON
+{
+  "votes": [
+    {"voteId": 1, "flopId": 1, "userId": 1, "upOrDown": "down"},
+    {"voteId": 2, "flopId": 20, "userId": 1, "upOrDown": "down"},
+    {"voteId": 3, "flopId": 13, "userId": 1, "upOrDown": "up"},
+  ]
+}
+```
+
+### POST a  vote to the votes table
+
+- `[POST]` a vote to votes
+
+| Method | Endpoint | Usage | Returns |
+| ------ | -------- | ----- | ------- |
+| POST   | `api/v1/votes` | Posts a vote to the votes table | Success Message |
+
+* On success, the HTTP status code in the response header is 201 ('Created').  
+* In case of server error, the header status code is a 5xx error code and the response body contains an error object.
+
+In order to add a new vote to a flop  you will have to send a request which includes the information in the body:
+
+```javascript
+{
+  "flopId": 1,
+  "userId": 1,
+  "upOrDown": "up"
+}
+```
 
 ## Error messages and meanings
 
