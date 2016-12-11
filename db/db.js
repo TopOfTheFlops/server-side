@@ -28,6 +28,8 @@ const getVotesById = (id) => knex('votes').where('userId', id)
 
 const addVote = (newVote) => knex('votes').insert(newVote)
 
+
+
 module.exports = {
   getAllLifestyles,
   getAllFlops,
