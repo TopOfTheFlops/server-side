@@ -44,7 +44,7 @@ router.post('/vote', ensureAuthenticated, function (req, res, next) {
 //POST Create a new flop
 router.post('/', ensureAuthenticated, function (req, res) {
   // console.log(req.body);
-  console.log(convertToBase64(req.body.mediaFile))
+  console.log("Convert to base 64", convertToBase64(req.body.mediaFile))
   addNewFlop(req.body)
     .then(function(response) {
       return res.status(201).json({
