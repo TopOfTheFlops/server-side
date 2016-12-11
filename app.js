@@ -14,6 +14,7 @@ var passport = require('./auth/passportSetup')
 var users = require('./routes/users')
 var lifestyles = require('./routes/lifestyles')
 var flops = require('./routes/flops')
+var votes = require('./routes/votes')
 
 var app = express()
 
@@ -28,5 +29,6 @@ app.use(passport.session())
 app.use('/api/v1/lifestyles', lifestyles)
 app.use('/api/v1/flops', flops)
 app.use('/api/v1/users', users)
+app.use('/api/v1/votes', votes)
 
 module.exports = app

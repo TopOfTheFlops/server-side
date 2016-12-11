@@ -83,3 +83,19 @@ test('Can post to the db and add a new flop', t => {
       t.end()
     })
 })
+
+test('Can post to the db and add a new vote', t => {
+  request(app)
+    .post('/api/v1/votes')
+    .send({
+      userId: 1,
+      flopId: 1,
+      upOrDown: 'up'
+    })
+    .expect(201)
+    .end((err, res) => {
+      t.false(err, 'The error from posting to /votes is null (falsy)')
+      t.true(res, 'The response from posting to flops to add a new one is truthy')
+      t.end()
+    })
+})
