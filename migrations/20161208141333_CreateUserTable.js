@@ -5,6 +5,7 @@ exports.up = function(knex, Promise) {
     table.string('username')
     table.string('name')
     table.string('password')
+    table.string('location')
     table.string('profilePic')
     table.string('bio')
   })
