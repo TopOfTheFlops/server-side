@@ -97,8 +97,6 @@ The get request will return an object with the key "flops", containing an array 
       "username": "karlll",
       "mediaURL": "http://google.com",
       "description": "This is my best Lasangna currently",
-      "upvotes": 34,
-      "downvotes": 1,
       "lifestyleId":54
     },
     {
@@ -107,8 +105,6 @@ The get request will return an object with the key "flops", containing an array 
       "username": "micky",
       "mediaURL": "imgur.com/jksdhfl",
       "description": "Behold the most perfect lasagna",
-      "upvotes": 34,
-      "downvotes": 1,
       "lifestyleId":54
     },
     {
@@ -117,8 +113,6 @@ The get request will return an object with the key "flops", containing an array 
       "username": "banana",
       "mediaURL": "imgur.com/hkdskj",
       "description": "Beards are my passion",
-      "upvotes": 34,
-      "downvotes": 1,
       "lifestyleId":23
     },
     {
@@ -127,8 +121,6 @@ The get request will return an object with the key "flops", containing an array 
       "username": "micky",
       "mediaURL": "imgur.com/hkdskjjkh",
       "description": "Beards are also my passion",
-      "upvotes": 34,
-      "downvotes": 1,
       "lifestyleId":23
     }
   ]
@@ -154,6 +146,7 @@ The get request will return an object with the key "user", containing an object 
     "userId": 23,
     "username": "micky",
     "name": "Lord Master",
+    "location": "Buenos Aires",
     "profilePic": "imgur.com/sdhklfh",
     "bio": "I am good at many things"
   }
@@ -189,6 +182,7 @@ In case of successful login you will receive an object containing the user infor
     "userId": 23,
     "username": "micky",
     "name": "Lord Master",
+    "location": "Wellington",
     "profilePic": "imgur.com/sdhklfh",
     "bio": "I am good at many things"
   }
@@ -221,6 +215,7 @@ To create a new user, the API is expecting an object on the body of the request 
   username: "gabulina",
   password: "bananas"
   name: "Gabita Genia",
+  location: "Wellington",
   profilePic: "imgur.com/sdhklfhhjk",
   bio: "I like voting for stuff"
 }
@@ -311,7 +306,7 @@ Using this endpoint you can remove an individual flop by the ID.
 
 ### GET to log out a user
 
-- `[GET]` a flop by id
+- `[GET]` Log out a user session
 
 | Method | Endpoint | Usage | Returns |
 | ------ | -------- | ----- | ------- |
@@ -328,7 +323,7 @@ If a user is currently logged in this will delete the session details from the b
 
 | Method | Endpoint | Usage | Returns |
 | ------ | -------- | ----- | ------- |
-| GET   | `api/v1/votes/:id` | Get the votes of a particular user | Object containing IDs of flops voted on and whether they were voted up or down |
+| GET    | `api/v1/votes/:id` | Get the votes of a particular user | Object containing IDs of flops voted on and whether they were voted up or down |
 
 * On success, the HTTP status code in the response header is 200 ('OK').  
 * In case of server error, the header status code is a 5xx error code and the response body contains an error object.  

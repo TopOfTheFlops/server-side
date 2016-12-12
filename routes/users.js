@@ -2,12 +2,8 @@ const express = require('express')
 const router = express.Router()
 const hasher = require('../auth/hasher')
 const passport = require('../auth/passportSetup')
-const getUserById = require('../db/db').getUserById
-const getAllUsers = require('../db/db').getAllUsers
-const signupNewUser = require('../db/db').signupNewUser
-const getUserByUsername = require('../db/db').getUserByUsername
-const editUserById = require('../db/db').editUserById
 const Passport = require('passport')
+const { getUserById, getAllUsers, signupNewUser, getUserByUsername, editUserById } = require('../db/db')
 
 //GET all users
 router.get('/', function (req, res) {

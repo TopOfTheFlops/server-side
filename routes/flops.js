@@ -1,13 +1,11 @@
-var express = require('express')
-var router = express.Router()
-// var ensureAuthenticated = ('../auth/ensureAuthenticated').ensureAuthenticated
-var getAllFlops = require('../db/db').getAllFlops
-var upvoteByFlopId = require('../db/db').upvoteByFlopId
-var downvoteByFlopId = require('../db/db').downvoteByFlopId
-var addNewFlop = require('../db/db').addNewFlop
-var deleteFlop = require('../db/db').deleteFlop
+const express = require('express')
+const router = express.Router()
+const { getAllFlops, addNewFlop, deleteFlop } = require('../db/db')
+// var getAllFlops = require('../db/db').getAllFlops
+// var addNewFlop = require('../db/db').addNewFlop
+// var deleteFlop = require('../db/db').deleteFlop
 
-/* GET users listing. */
+/* GET all flops */
 router.get('/', function (req, res) {
   getAllFlops()
     .then(function (flops) {
@@ -19,30 +17,8 @@ router.get('/', function (req, res) {
     })
 })
 
-//POST upvote and downvotes
-router.post('/vote', ensureAuthenticated, function (req, res, next) {
-  // console.log('Voting ody', req.body)
-  if (req.body.action === 'upvote') {
-    upvoteByFlopId(req.body.flopId)
-      .then(response => {
-        return res.status(201).send('Flop upvoted succesfully')
-      })
-      .catch(error => console.log("Error upvoting", error))
-  } else if(req.body.action === 'downvote'){
-    downvoteByFlopId(req.body.flopId)
-      .then(response => {
-        return res.status(201).send('Flop downvoted succesfully')
-      })
-      .catch(error => {
-        console.log("Error downvoting", error)
-        return res.status(500).send('Error downvoting')
-      })
-  }
-})
-
 //POST Create a new flop
 router.post('/', ensureAuthenticated, function (req, res) {
-  // console.log(req.body);
   addNewFlop(req.body)
     .then(function(response) {
       return res.status(201).json({
@@ -72,8 +48,6 @@ router.post('/remove/:id', ensureAuthenticated, function (req, res) {
 })
 
 function ensureAuthenticated (req, res, next) {
-  console.log("Request user from client side:", req.user)
-  console.log("Request session from client side:", req.session)
   if (req.isAuthenticated()) {
     return next()
   }
@@ -88,3 +62,23 @@ function ensureAuthenticated (req, res, next) {
 }
 
 module.exports = router
+
+// //POST upvote and downvotes
+// router.post('/vote', ensureAuthenticated, function (req, res, next) {
+//   if (req.body.action === 'upvote') {
+//     upvoteByFlopId(req.body.flopId)
+//       .then(response => {
+//         return res.status(201).send('Flop upvoted succesfully')
+//       })
+//       .catch(error => console.log("Error upvoting", error))
+//   } else if(req.body.action === 'downvote'){
+//     downvoteByFlopId(req.body.flopId)
+//       .then(response => {
+//         return res.status(201).send('Flop downvoted succesfully')
+//       })
+//       .catch(error => {
+//         console.log("Error downvoting", error)
+//         return res.status(500).send('Error downvoting')
+//       })
+//   }
+// })
