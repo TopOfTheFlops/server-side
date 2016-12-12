@@ -31,7 +31,7 @@ router.post('/signup', function (req, res) {
         throw new Error('This username is already taken')
       } else {
         hasher.hash(req.body.password, function (hashedPassword){
-          signupNewUser({ username: req.body.username, password: hashedPassword, name: req.body.name, profilePic: req.body.profilePic, bio: req.body.bio})
+          signupNewUser({ username: req.body.username, password: hashedPassword, name: req.body.name, profilePic: req.body.profilePic, bio: req.body.bio, location: req.body.location})
             .then(function(response){
               return res.status(201).send("User account created")
             })
@@ -74,7 +74,8 @@ router.post('/edit/:id', ensureAuthenticated, function(req, res) {
     var newValues = {
       password: hashedPassword,
       profilePic: req.body.profilePic,
-      bio: req.body.bio
+      bio: req.body.bio,
+      location: req.body.location
     }
     editUserById(req.params.id, newValues)
       .then(function (response) {

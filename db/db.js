@@ -8,7 +8,7 @@ const getAllFlops = () => knex.select('flopId', 'lifestyleId', 'flops.userId', '
 
 const getAllUsers = () => knex('users')
 
-const getUserById = (id) => knex.select('userId', 'username', 'name', 'profilePic', 'bio').from('users').where('userId', id)
+const getUserById = (id) => knex.select('userId', 'username', 'name', 'location', 'profilePic', 'bio').from('users').where('userId', id)
 
 const getUserByUsername = (username) => knex('users').where('username', username)
 
