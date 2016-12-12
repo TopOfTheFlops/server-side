@@ -13,15 +13,16 @@ Some of the API endpoints require authentication:
 | Method | Endpoint | Requires Auth |
 | ------ | -------- | ------------- |
 | GET    | `api/v1/lifestyles` | NO |
+| POST   | `api/v1/lifestyles` | YES |
 | GET    | `api/v1/flops`      | NO |
+| POST   | `api/v1/flops`     | YES |
+| POST   | `api/v1/flops/remove/:id` | YES |
 | GET    | `api/v1/users/:id`  | NO |
 | POST   | `api/v1/users/login` | NO |
 | POST   | `api/v1/users/signup` | NO |
-| POST   | `api/v1/lifestyles` | YES |
-| POST   | `api/v1/flops`     | YES |
-| POST   | `api/v1/flops/remove/:id` | YES |
-| GET   | `api/v1/users/logout` | NO |
-| GET   | `api/v1/votes/:id` | NO |
+| POST   | `api/v1/users/edit/:id` | YES |
+| GET    | `api/v1/users/logout` | NO |
+| GET    | `api/v1/votes/:id` | NO |
 | POST   | `api/v1/votes` | NO |
 
 If the authentication fails the API will respond with the following error:
@@ -402,6 +403,29 @@ This what an up vote will look like for flopId: 3 and userId: 5
   "downvote": 0
 }
 ```
+
+### Edit a user profile
+
+- `[POST]` edit a user profile
+
+| Method | Endpoint | Usage | Returns |
+| ------ | -------- | ----- | ------- |
+| POST   | `api/v1/users/edit/:id` | modifies an existing user profile | Success object / Error |
+
+* On success, the HTTP status code in the response header is 201 ('Created').
+* In case of server error, the header status code is a 5xx error code and the response body contains an error object.
+
+To modify a user profile, the API is expecting an object on the body of the request that contains the following information:
+
+```js
+{
+  password: "bananas",
+  location: "Wellington",
+  profilePic: "imgur.com/sdhklfhhjk",
+  bio: "I like voting for stuff"
+}
+```
+If the request is successful you will receive a success code 201
 
 ## Error messages and meanings
 
