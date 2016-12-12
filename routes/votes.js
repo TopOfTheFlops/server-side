@@ -1,11 +1,11 @@
 const express = require('express')
 const router = express.Router()
 
-const getVotesById = require('../db/db').getVotesById
-const addVote = require('../db/db').addVote
+const { getVotesById, voteByFlopId } = require('../db/db')
 
 router.post('/', function (req, res) {
-  addVote(req.body)
+  console.log('Posting to vote route, req.body is:', req.body);
+  voteByFlopId(req.body)
     .then(response => {
       return res.status(201).send('Vote added successfully')
     })

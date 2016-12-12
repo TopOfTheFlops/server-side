@@ -23,6 +23,7 @@ Some of the API endpoints require authentication:
 | POST   | `api/v1/flops/remove/:id` | YES |
 | GET   | `api/v1/users/logout` | NO |
 | GET   | `api/v1/votes/:id` | NO |
+| POST   | `api/v1/votes` | NO |
 
 If the authentication fails the API will respond with the following error:
 
@@ -366,9 +367,9 @@ e.g. `api/v1/votes/2` where 2 is the user's id
 ```JSON
 {
   "votes": [
-    {"voteId": 1, "flopId": 1, "userId": 1, "upOrDown": "down"},
-    {"voteId": 2, "flopId": 20, "userId": 1, "upOrDown": "down"},
-    {"voteId": 3, "flopId": 13, "userId": 1, "upOrDown": "up"},
+    {"voteId": 1, "flopId": 1, "userId": 1, "upvote": 0, "downvote": 1},
+    {"voteId": 2, "flopId": 20, "userId": 1, "upvote": 0, "downvote": 1},
+    {"voteId": 3, "flopId": 13, "userId": 1, "upvote": 1, "downvote": 0},
   ]
 }
 ```
@@ -386,11 +387,23 @@ e.g. `api/v1/votes/2` where 2 is the user's id
 
 In order to add a new vote to a flop  you will have to send a request which includes the information in the body:
 
+This is what a down vote will look like for flopId: 1 and userId: 1
 ```javascript
 {
   "flopId": 1,
   "userId": 1,
-  "upOrDown": "up"
+  "upvote": 0,
+  "downvote": 1
+}
+```
+
+This what an up vote will look like for flopId: 3 and userId: 5
+```javascript
+{
+  "flopId": 3,
+  "userId": 5,
+  "upvote": 1,
+  "downvote": 0
 }
 ```
 

@@ -14,9 +14,24 @@ const getUserByUsername = (username) => knex('users').where('username', username
 
 const signupNewUser = (userInfo) => knex('users').insert(userInfo)
 
-const upvoteByFlopId = (flopId) => knex('flops').where('flopId', flopId).increment('upvotes', 1)
-
-const downvoteByFlopId = (flopId) => knex('flops').where('flopId', flopId).increment('downvotes', 1)
+const voteByFlopId = (voteInfo) => {
+  console.log('Voting flop by Id:', voteInfo)
+  return knex('votes')
+    .then(votesArray => {
+      var votePresent = votesArray.filter(vote => vote.flopId == voteInfo.flopId && vote.userId == voteInfo.userId).length > 0
+      if (!votePresent) {
+        return knex('votes').insert(voteInfo)
+      }
+      else {
+        return knex('votes')
+          .where(
+            {flopId: voteInfo.flopId, userId: voteInfo.userId}
+          )
+          .update(voteInfo)
+      }
+    })
+    .catch(error => console.log(error))
+  }
 
 const addNewLifestyle = (newLifestyle) => knex('lifestyles').returning('lifestyleId').insert(newLifestyle)
 
@@ -38,8 +53,7 @@ module.exports = {
   getUserByUsername,
   getVotesById,
   signupNewUser,
-  upvoteByFlopId,
-  downvoteByFlopId,
+  voteByFlopId,
   addNewLifestyle,
   addNewFlop,
   deleteFlop,
