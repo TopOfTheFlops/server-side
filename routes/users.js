@@ -74,10 +74,12 @@ router.post('/edit/:id', ensureAuthenticated, function(req, res) {
       location: req.body.location
     }
     editUserById(req.params.id, newValues)
-      .then(function (response) {
-        res.status(201).send('Update was successful')
+      .then(function (user) {
+        console.log("returns from database", user);
+        res.status(201).json({success: 'Update was successful', user: user[0]})
       })
       .catch(function (error) {
+        console.log("getting to an error message");
         res.status(500).json({error: "Error updating user"})
       })
   })

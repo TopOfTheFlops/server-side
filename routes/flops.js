@@ -1,9 +1,6 @@
 const express = require('express')
 const router = express.Router()
 const { getAllFlops, addNewFlop, deleteFlop } = require('../db/db')
-// var getAllFlops = require('../db/db').getAllFlops
-// var addNewFlop = require('../db/db').addNewFlop
-// var deleteFlop = require('../db/db').deleteFlop
 
 /* GET all flops */
 router.get('/', function (req, res) {
