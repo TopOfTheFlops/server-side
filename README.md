@@ -362,13 +362,11 @@ The get request will return an object with the key "votes", containing an array 
 
 
 ```JSON
-{
-  "votes": [
+  [
     {"voteId": 1, "flopId": 1, "userId": 1, "upvote": 0, "downvote": 1},
     {"voteId": 2, "flopId": 20, "userId": 16, "upvote": 0, "downvote": 1},
     {"voteId": 3, "flopId": 13, "userId": 32, "upvote": 1, "downvote": 0},
   ]
-}
 ```
 
 ### POST a  vote to the votes table

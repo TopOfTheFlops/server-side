@@ -6,6 +6,7 @@ const getUserById = require('../db/db').getUserById
 const getAllUsers = require('../db/db').getAllUsers
 const signupNewUser = require('../db/db').signupNewUser
 const getUserByUsername = require('../db/db').getUserByUsername
+const editUserById = require('../db/db').editUserById
 const Passport = require('passport')
 
 //GET all users
@@ -35,7 +36,6 @@ router.post('/signup', function (req, res) {
               return res.status(201).send("User account created")
             })
         })
-        // return signupNewUser(req.body)
       }
     })
     .catch(function(err){
@@ -68,10 +68,42 @@ router.post('/login', passport.authenticate('local'), function (req, res) {
     })
 })
 
+//POST to edit user profile
+router.post('/edit/:id', ensureAuthenticated, function(req, res) {
+  hasher.hash(req.body.password, function(hashedPassword){
+    var newValues = {
+      password: hashedPassword,
+      profilePic: req.body.profilePic,
+      bio: req.body.bio
+    }
+    editUserById(req.params.id, newValues)
+      .then(function (response) {
+        res.status(201).send('Update was successful')
+      })
+      .catch(function (error) {
+        res.status(500).json({error: "Error updating user"})
+      })
+  })
+})
+
 //GET to logout an user
 router.get('/logout', function(req, res){
   req.logOut()
   res.send('User logged out')
 })
 
-module.exports = router;
+function ensureAuthenticated (req, res, next) {
+  if (req.isAuthenticated()) {
+    return next()
+  }
+  return res.json({
+    "error":
+      {
+        "type": "auth",
+        "code": 401,
+        "message": "authentication failed"
+      }
+  })
+}
+
+module.exports = router
