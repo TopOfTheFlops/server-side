@@ -17,7 +17,6 @@ Some of the API endpoints require authentication:
 | GET    | `api/v1/users/:id`  | NO |
 | POST   | `api/v1/users/login` | NO |
 | POST   | `api/v1/users/signup` | NO |
-| POST   | `api/v1/flops/vote` | YES |
 | POST   | `api/v1/lifestyles` | YES |
 | POST   | `api/v1/flops`     | YES |
 | POST   | `api/v1/flops/remove/:id` | YES |
@@ -226,33 +225,6 @@ To create a new user, the API is expecting an object on the body of the request 
 }
 ```
 If the request is successful you will receive a success code 201
-
-### POST vote to a particular flop post
-
-- `[POST]` a vote to a flop
-
-| Method | Endpoint | Usage | Returns |
-| ------ | -------- | ----- | ------- |
-| POST    | `api/v1/flops/vote` | Post the vote count for a particular flop | Success message |
-
-* On success, the HTTP status code in the response header is 201 ('Created').  
-* In case of server error, the header status code is a 5xx error code and the response body contains an error object.  
-
-In order to upvote or downvote a post you will have to send a request which includes the action in the body as in the following example:
-
-```javascript
-{
-  action: "upvote",
-  flopId: 367
-}
-```
-or
-```javascript
-{
-  action: "downvote",
-  flopId: 23
-}
-```
 
 ### POST to create a new Lifestyle (competition category)
 

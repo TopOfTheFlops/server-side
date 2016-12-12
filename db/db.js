@@ -15,7 +15,6 @@ const getUserByUsername = (username) => knex('users').where('username', username
 const signupNewUser = (userInfo) => knex('users').insert(userInfo)
 
 const voteByFlopId = (voteInfo) => {
-  console.log('Voting flop by Id:', voteInfo)
   return knex('votes')
     .then(votesArray => {
       var votePresent = votesArray.filter(vote => vote.flopId == voteInfo.flopId && vote.userId == voteInfo.userId).length > 0
@@ -41,7 +40,6 @@ const deleteFlop = (flopId) => knex('flops').where('flopId', flopId).del()
 
 const getVotesById = (id) => knex('votes').where('userId', id)
 
-const addVote = (newVote) => knex('votes').insert(newVote)
 
 
 
@@ -56,6 +54,5 @@ module.exports = {
   voteByFlopId,
   addNewLifestyle,
   addNewFlop,
-  deleteFlop,
-  addVote
+  deleteFlop
 }
