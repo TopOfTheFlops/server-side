@@ -42,8 +42,7 @@ const deleteFlop = (flopId) => knex('flops').where('flopId', flopId).del()
 
 const getVotesById = (id) => knex('votes').where('userId', id)
 
-const editUserById = (id, values) => knex('users').where('userId', id).update(values).returning('userId', 'username', 'name', 'location', 'profilePic', 'bio')
-
+const editUserById = (id, values) => knex('users').where('userId', id).update(values)
 
 module.exports = {
   getAllLifestyles,
