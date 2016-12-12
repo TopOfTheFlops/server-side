@@ -5,6 +5,14 @@ const passport = require('../auth/passportSetup')
 const Passport = require('passport')
 const { getUserById, getAllUsers, signupNewUser, getUserByUsername, editUserById } = require('../db/db')
 
+//GET to logout an user
+router.get('/logout', function(req, res){
+  req.logOut()
+  req.session.destroy(function (err) {
+    res.send('User logged out')
+  })
+})
+
 //GET all users
 router.get('/', function (req, res) {
   getAllUsers()
@@ -39,19 +47,6 @@ router.post('/signup', function (req, res) {
     })
 })
 
-/* GET users listing. */
-router.get('/:id', function(req, res) {
-  getUserById(req.params.id)
-    .then(response => {
-      var user = {
-        user: response[0]
-      }
-      res.json(user)
-    })
-    .catch(error => {
-      res.status(500).send('Could not get user by id')
-    })
-})
 
 //POST to login
 router.post('/login', passport.authenticate('local'), function (req, res) {
@@ -86,10 +81,18 @@ router.post('/edit/:id', ensureAuthenticated, function(req, res) {
   })
 })
 
-//GET to logout an user
-router.get('/logout', function(req, res){
-  req.logOut()
-  res.send('User logged out')
+/* GET users listing. */
+router.get('/:id', function(req, res) {
+  getUserById(req.params.id)
+  .then(response => {
+    var user = {
+      user: response[0]
+    }
+    res.json(user)
+  })
+  .catch(error => {
+    res.status(500).send('Could not get user by id')
+  })
 })
 
 function ensureAuthenticated (req, res, next) {
