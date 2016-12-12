@@ -4,19 +4,35 @@ var knex = Knex(knexConfig)
 
 const getAllLifestyles = () => knex('lifestyles')
 
-const getAllFlops = () => knex.select('flopId', 'lifestyleId', 'flops.userId', 'username', 'upvotes', 'downvotes', 'mediaURL', 'description').from('flops').leftJoin('users', 'flops.userId', 'users.userId')
+const getAllFlops = () => knex.select('flopId', 'lifestyleId', 'flops.userId', 'username', 'mediaURL', 'description').from('flops').leftJoin('users', 'flops.userId', 'users.userId')
 
 const getAllUsers = () => knex('users')
 
-const getUserById = (id) => knex.select('userId', 'username', 'name', 'profilePic', 'bio').from('users').where('userId', id)
+const getUserById = (id) => knex.select('userId', 'username', 'name', 'location', 'profilePic', 'bio').from('users').where('userId', id)
 
 const getUserByUsername = (username) => knex('users').where('username', username)
 
 const signupNewUser = (userInfo) => knex('users').insert(userInfo)
 
-const upvoteByFlopId = (flopId) => knex('flops').where('flopId', flopId).increment('upvotes', 1)
+const voteByFlopId = (voteInfo) => {
+  return knex('votes')
+    .then(votesArray => {
+      var votePresent = votesArray.filter(vote => vote.flopId == voteInfo.flopId && vote.userId == voteInfo.userId).length > 0
+      if (!votePresent) {
+        return knex('votes').insert(voteInfo)
+      }
+      else {
+        return knex('votes')
+          .where(
+            {flopId: voteInfo.flopId, userId: voteInfo.userId}
+          )
+          .update(voteInfo)
+      }
+    })
+    .catch(error => console.log(error))
+  }
 
-const downvoteByFlopId = (flopId) => knex('flops').where('flopId', flopId).increment('downvotes', 1)
+const getAllVotes = () => knex('votes')
 
 const addNewLifestyle = (newLifestyle) => knex('lifestyles').returning('lifestyleId').insert(newLifestyle)
 
@@ -26,7 +42,7 @@ const deleteFlop = (flopId) => knex('flops').where('flopId', flopId).del()
 
 const getVotesById = (id) => knex('votes').where('userId', id)
 
-const addVote = (newVote) => knex('votes').insert(newVote)
+const editUserById = (id, values) => knex('users').where('userId', id).update(values)
 
 module.exports = {
   getAllLifestyles,
@@ -36,10 +52,10 @@ module.exports = {
   getUserByUsername,
   getVotesById,
   signupNewUser,
-  upvoteByFlopId,
-  downvoteByFlopId,
+  voteByFlopId,
   addNewLifestyle,
   addNewFlop,
   deleteFlop,
-  addVote
+  getAllVotes,
+  editUserById
 }

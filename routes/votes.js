@@ -1,11 +1,11 @@
 const express = require('express')
 const router = express.Router()
 
-const getVotesById = require('../db/db').getVotesById
-const addVote = require('../db/db').addVote
+const { getVotesById, getAllVotes, voteByFlopId } = require('../db/db')
 
+//POST vote by flop id
 router.post('/', function (req, res) {
-  addVote(req.body)
+  voteByFlopId(req.body)
     .then(response => {
       return res.status(201).send('Vote added successfully')
     })
@@ -16,6 +16,16 @@ router.post('/', function (req, res) {
 
 })
 
+//GET all votes
+router.get('/', function (req, res) {
+  getAllVotes()
+    .then(votes => {
+      res.json(votes)
+    })
+    .catch(err => console.log(err))
+})
+
+//GET vote by id
 router.get('/:id', function (req, res) {
   getVotesById(req.params.id)
     .then(votes => {

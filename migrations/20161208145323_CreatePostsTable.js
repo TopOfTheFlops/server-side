@@ -4,8 +4,6 @@ exports.up = function (knex, Promise) {
     table.increments('flopId')
     table.integer('lifestyleId')
     table.integer('userId')
-    table.integer('upvotes').defaultTo(0)
-    table.integer('downvotes').defaultTo(0)
     table.string('mediaURL')
     table.string('description')
   })

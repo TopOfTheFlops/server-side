@@ -1,7 +1,9 @@
-var express = require('express')
-var router = express.Router()
-var getAllLifestyles = require('../db/db').getAllLifestyles
-var addNewLifestyle = require('../db/db').addNewLifestyle
+const express = require('express')
+const router = express.Router()
+const { getAllLifestyles, addNewLifestyle } = require('../db/db')
+
+// const getAllLifestyles = require('../db/db').getAllLifestyles
+// const addNewLifestyle = require('../db/db').addNewLifestyle
 
 /* GET users listing. */
 router.get('/', function (req, res) {
@@ -17,7 +19,6 @@ router.get('/', function (req, res) {
 
 //POST a new lifestyle
 router.post('/', ensureAuthenticated, function (req, res) {
-  // console.log(req.body);
   addNewLifestyle(req.body)
     .then(function(response) {
       return res.status(201).json({

@@ -2,11 +2,8 @@ const express = require('express')
 const router = express.Router()
 const hasher = require('../auth/hasher')
 const passport = require('../auth/passportSetup')
-const getUserById = require('../db/db').getUserById
-const getAllUsers = require('../db/db').getAllUsers
-const signupNewUser = require('../db/db').signupNewUser
-const getUserByUsername = require('../db/db').getUserByUsername
 const Passport = require('passport')
+const { getUserById, getAllUsers, signupNewUser, getUserByUsername, editUserById } = require('../db/db')
 
 //GET all users
 router.get('/', function (req, res) {
@@ -30,12 +27,11 @@ router.post('/signup', function (req, res) {
         throw new Error('This username is already taken')
       } else {
         hasher.hash(req.body.password, function (hashedPassword){
-          signupNewUser({ username: req.body.username, password: hashedPassword, name: req.body.name, profilePic: req.body.profilePic, bio: req.body.bio})
+          signupNewUser({ username: req.body.username, password: hashedPassword, name: req.body.name, profilePic: req.body.profilePic, bio: req.body.bio, location: req.body.location})
             .then(function(response){
               return res.status(201).send("User account created")
             })
         })
-        // return signupNewUser(req.body)
       }
     })
     .catch(function(err){
@@ -68,10 +64,46 @@ router.post('/login', passport.authenticate('local'), function (req, res) {
     })
 })
 
+//POST to edit user profile
+router.post('/edit/:id', ensureAuthenticated, function(req, res) {
+  hasher.hash(req.body.password, function(hashedPassword){
+    var newValues = {
+      password: hashedPassword,
+      profilePic: req.body.profilePic,
+      bio: req.body.bio,
+      location: req.body.location
+    }
+    editUserById(req.params.id, newValues)
+      .then(function (user) {
+        return getUserById(req.params.id)
+      })
+      .then(function (user) {
+        res.status(201).json({success: 'Update was successful', user: user[0]})
+      })
+      .catch(function (error) {
+        res.status(500).json({error: "Error updating user"})
+      })
+  })
+})
+
 //GET to logout an user
 router.get('/logout', function(req, res){
   req.logOut()
   res.send('User logged out')
 })
 
-module.exports = router;
+function ensureAuthenticated (req, res, next) {
+  if (req.isAuthenticated()) {
+    return next()
+  }
+  return res.json({
+    "error":
+      {
+        "type": "auth",
+        "code": 401,
+        "message": "authentication failed"
+      }
+  })
+}
+
+module.exports = router

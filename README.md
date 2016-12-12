@@ -13,16 +13,17 @@ Some of the API endpoints require authentication:
 | Method | Endpoint | Requires Auth |
 | ------ | -------- | ------------- |
 | GET    | `api/v1/lifestyles` | NO |
+| POST   | `api/v1/lifestyles` | YES |
 | GET    | `api/v1/flops`      | NO |
+| POST   | `api/v1/flops`     | YES |
+| POST   | `api/v1/flops/remove/:id` | YES |
 | GET    | `api/v1/users/:id`  | NO |
 | POST   | `api/v1/users/login` | NO |
 | POST   | `api/v1/users/signup` | NO |
-| POST   | `api/v1/flops/vote` | YES |
-| POST   | `api/v1/lifestyles` | YES |
-| POST   | `api/v1/flops`     | YES |
-| POST   | `api/v1/flops/remove/:id` | YES |
-| GET   | `api/v1/users/logout` | NO |
-| GET   | `api/v1/votes/:id` | NO |
+| POST   | `api/v1/users/edit/:id` | YES |
+| GET    | `api/v1/users/logout` | NO |
+| GET    | `api/v1/votes/:id` | NO |
+| POST   | `api/v1/votes` | NO |
 
 If the authentication fails the API will respond with the following error:
 
@@ -96,8 +97,6 @@ The get request will return an object with the key "flops", containing an array 
       "username": "karlll",
       "mediaURL": "http://google.com",
       "description": "This is my best Lasangna currently",
-      "upvotes": 34,
-      "downvotes": 1,
       "lifestyleId":54
     },
     {
@@ -106,8 +105,6 @@ The get request will return an object with the key "flops", containing an array 
       "username": "micky",
       "mediaURL": "imgur.com/jksdhfl",
       "description": "Behold the most perfect lasagna",
-      "upvotes": 34,
-      "downvotes": 1,
       "lifestyleId":54
     },
     {
@@ -116,8 +113,6 @@ The get request will return an object with the key "flops", containing an array 
       "username": "banana",
       "mediaURL": "imgur.com/hkdskj",
       "description": "Beards are my passion",
-      "upvotes": 34,
-      "downvotes": 1,
       "lifestyleId":23
     },
     {
@@ -126,8 +121,6 @@ The get request will return an object with the key "flops", containing an array 
       "username": "micky",
       "mediaURL": "imgur.com/hkdskjjkh",
       "description": "Beards are also my passion",
-      "upvotes": 34,
-      "downvotes": 1,
       "lifestyleId":23
     }
   ]
@@ -153,6 +146,7 @@ The get request will return an object with the key "user", containing an object 
     "userId": 23,
     "username": "micky",
     "name": "Lord Master",
+    "location": "Buenos Aires",
     "profilePic": "imgur.com/sdhklfh",
     "bio": "I am good at many things"
   }
@@ -188,6 +182,7 @@ In case of successful login you will receive an object containing the user infor
     "userId": 23,
     "username": "micky",
     "name": "Lord Master",
+    "location": "Wellington",
     "profilePic": "imgur.com/sdhklfh",
     "bio": "I am good at many things"
   }
@@ -220,38 +215,12 @@ To create a new user, the API is expecting an object on the body of the request 
   username: "gabulina",
   password: "bananas"
   name: "Gabita Genia",
+  location: "Wellington",
   profilePic: "imgur.com/sdhklfhhjk",
   bio: "I like voting for stuff"
 }
 ```
 If the request is successful you will receive a success code 201
-
-### POST vote to a particular flop post
-
-- `[POST]` a vote to a flop
-
-| Method | Endpoint | Usage | Returns |
-| ------ | -------- | ----- | ------- |
-| POST    | `api/v1/flops/vote` | Post the vote count for a particular flop | Success message |
-
-* On success, the HTTP status code in the response header is 201 ('Created').  
-* In case of server error, the header status code is a 5xx error code and the response body contains an error object.  
-
-In order to upvote or downvote a post you will have to send a request which includes the action in the body as in the following example:
-
-```javascript
-{
-  action: "upvote",
-  flopId: 367
-}
-```
-or
-```javascript
-{
-  action: "downvote",
-  flopId: 23
-}
-```
 
 ### POST to create a new Lifestyle (competition category)
 
@@ -337,7 +306,7 @@ Using this endpoint you can remove an individual flop by the ID.
 
 ### GET to log out a user
 
-- `[GET]` a flop by id
+- `[GET]` Log out a user session
 
 | Method | Endpoint | Usage | Returns |
 | ------ | -------- | ----- | ------- |
@@ -354,7 +323,7 @@ If a user is currently logged in this will delete the session details from the b
 
 | Method | Endpoint | Usage | Returns |
 | ------ | -------- | ----- | ------- |
-| GET   | `api/v1/votes/:id` | Get the votes of a particular user | Object containing IDs of flops voted on and whether they were voted up or down |
+| GET    | `api/v1/votes/:id` | Get the votes of a particular user | Object containing IDs of flops voted on and whether they were voted up or down |
 
 * On success, the HTTP status code in the response header is 200 ('OK').  
 * In case of server error, the header status code is a 5xx error code and the response body contains an error object.  
@@ -366,11 +335,33 @@ e.g. `api/v1/votes/2` where 2 is the user's id
 ```JSON
 {
   "votes": [
-    {"voteId": 1, "flopId": 1, "userId": 1, "upOrDown": "down"},
-    {"voteId": 2, "flopId": 20, "userId": 1, "upOrDown": "down"},
-    {"voteId": 3, "flopId": 13, "userId": 1, "upOrDown": "up"},
+    {"voteId": 1, "flopId": 1, "userId": 1, "upvote": 0, "downvote": 1},
+    {"voteId": 2, "flopId": 20, "userId": 1, "upvote": 0, "downvote": 1},
+    {"voteId": 3, "flopId": 13, "userId": 1, "upvote": 1, "downvote": 0},
   ]
 }
+```
+
+### GET all votes
+
+- `[GET]` all votes
+
+| Method | Endpoint | Usage | Returns |
+| ------ | -------- | ----- | ------- |
+| GET   | `api/v1/votes` | Get all of the votes | Object containing all of the votes for every flop |
+
+* On success, the HTTP status code in the response header is 200 ('OK').  
+* In case of server error, the header status code is a 5xx error code and the response body contains an error object.  
+
+The get request will return an object with the key "votes", containing an array of objects that have info about the flopId and whether it was voted up or down.
+
+
+```JSON
+  [
+    {"voteId": 1, "flopId": 1, "userId": 1, "upvote": 0, "downvote": 1},
+    {"voteId": 2, "flopId": 20, "userId": 16, "upvote": 0, "downvote": 1},
+    {"voteId": 3, "flopId": 13, "userId": 32, "upvote": 1, "downvote": 0},
+  ]
 ```
 
 ### POST a  vote to the votes table
@@ -386,13 +377,48 @@ e.g. `api/v1/votes/2` where 2 is the user's id
 
 In order to add a new vote to a flop  you will have to send a request which includes the information in the body:
 
+This is what a down vote will look like for flopId: 1 and userId: 1
 ```javascript
 {
   "flopId": 1,
   "userId": 1,
-  "upOrDown": "up"
+  "upvote": 0,
+  "downvote": 1
 }
 ```
+
+This what an up vote will look like for flopId: 3 and userId: 5
+```javascript
+{
+  "flopId": 3,
+  "userId": 5,
+  "upvote": 1,
+  "downvote": 0
+}
+```
+
+### Edit a user profile
+
+- `[POST]` edit a user profile
+
+| Method | Endpoint | Usage | Returns |
+| ------ | -------- | ----- | ------- |
+| POST   | `api/v1/users/edit/:id` | modifies an existing user profile | Success object / Error |
+
+* On success, the HTTP status code in the response header is 201 ('Created').
+* In case of server error, the header status code is a 5xx error code and the response body contains an error object.
+
+To modify a user profile, the API is expecting an object on the body of the request that contains the following information:
+
+```js
+{
+  password: "bananas",
+  location: "Wellington",
+  profilePic: "imgur.com/sdhklfhhjk",
+  bio: "I like voting for stuff"
+}
+```
+If the request is successful you will receive a success code 201
 
 ## Error messages and meanings
 
