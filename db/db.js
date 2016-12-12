@@ -32,6 +32,8 @@ const voteByFlopId = (voteInfo) => {
     .catch(error => console.log(error))
   }
 
+const getAllVotes = () => knex('votes')
+
 const addNewLifestyle = (newLifestyle) => knex('lifestyles').returning('lifestyleId').insert(newLifestyle)
 
 const addNewFlop = (newFlop) => knex('flops').returning('flopId').insert(newFlop)
@@ -54,5 +56,6 @@ module.exports = {
   voteByFlopId,
   addNewLifestyle,
   addNewFlop,
-  deleteFlop
+  deleteFlop,
+  getAllVotes
 }

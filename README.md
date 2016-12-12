@@ -346,6 +346,30 @@ e.g. `api/v1/votes/2` where 2 is the user's id
 }
 ```
 
+### GET all votes
+
+- `[GET]` all votes
+
+| Method | Endpoint | Usage | Returns |
+| ------ | -------- | ----- | ------- |
+| GET   | `api/v1/votes` | Get all of the votes | Object containing all of the votes for every flop |
+
+* On success, the HTTP status code in the response header is 200 ('OK').  
+* In case of server error, the header status code is a 5xx error code and the response body contains an error object.  
+
+The get request will return an object with the key "votes", containing an array of objects that have info about the flopId and whether it was voted up or down.
+
+
+```JSON
+{
+  "votes": [
+    {"voteId": 1, "flopId": 1, "userId": 1, "upvote": 0, "downvote": 1},
+    {"voteId": 2, "flopId": 20, "userId": 16, "upvote": 0, "downvote": 1},
+    {"voteId": 3, "flopId": 13, "userId": 32, "upvote": 1, "downvote": 0},
+  ]
+}
+```
+
 ### POST a  vote to the votes table
 
 - `[POST]` a vote to votes
