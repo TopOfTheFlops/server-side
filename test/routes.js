@@ -8,7 +8,7 @@ test('Can get the lifestyles from /api/v1/lifestyles', t => {
     .get('/api/v1/lifestyles')
     .expect(200)
     .end((err, res) => {
-      t.false(err, 'The error from the /lifestyles is null (flasy)')
+      t.false(err, 'The error from the /lifestyles is null (falsey)')
       t.true(res, 'The response from /lifestyles is truthy')
       t.true(res.body.hasOwnProperty('lifestyles'), 'There is a flops property returned from /lifestyles')
       t.end()

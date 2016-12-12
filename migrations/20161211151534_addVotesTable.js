@@ -5,6 +5,7 @@ exports.up = function(knex, Promise) {
     table.integer('flopId')
     table.integer('userId')
     table.string('upOrDown')
+    table.timestamps()
   })
 };
 

@@ -11,10 +11,6 @@ var corsOptions = {
 }
 var passport = require('./auth/passportSetup')
 
-var users = require('./routes/users')
-var lifestyles = require('./routes/lifestyles')
-var flops = require('./routes/flops')
-var votes = require('./routes/votes')
 
 var app = express()
 
@@ -22,13 +18,14 @@ app.use(cors(corsOptions))
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(cookieParser())
-app.use(require('express-session')({ secret: 'the cake is a lie', resave: false, saveUninitialized: false }))
+app.use(require('express-session')({ secret: process.env.SESSION_SECRET, resave: false, saveUninitialized: false }))
 app.use(passport.initialize())
 app.use(passport.session())
 
-app.use('/api/v1/lifestyles', lifestyles)
-app.use('/api/v1/flops', flops)
-app.use('/api/v1/users', users)
-app.use('/api/v1/votes', votes)
+app.use('/api/v1/lifestyles', require('./routes/lifestyles'))
+app.use('/api/v1/flops', require('./routes/flops'))
+app.use('/api/v1/users', require('./routes/users'))
+app.use('/api/v1/votes', require('./routes/votes'))
 
 module.exports = app
+

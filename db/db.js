@@ -14,7 +14,7 @@ const getUserByUsername = (username) => knex('users').where('username', username
 
 const signupNewUser = (userInfo) => knex('users').insert(userInfo)
 
-const upvoteByFlopId = (flopId) => knex('flops').where('flopId', flopId).increment('upvotes', 1)
+const upvoteByFlopId = (flopId, direction) => knex('flops').where('flopId', flopId).increment(direction, 1)
 
 const downvoteByFlopId = (flopId) => knex('flops').where('flopId', flopId).increment('downvotes', 1)
 

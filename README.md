@@ -1,3 +1,5 @@
+remove dev.sqlite3
+
 # Top Of the Flops API™
 
 ## Summary
@@ -13,16 +15,16 @@ Some of the API endpoints require authentication:
 | Method | Endpoint | Requires Auth |
 | ------ | -------- | ------------- |
 | GET    | `api/v1/lifestyles` | NO |
-| GET    | `api/v1/flops`      | NO |
+| POST   | `api/v1/lifestyles` | YES |
 | GET    | `api/v1/users/:id`  | NO |
 | POST   | `api/v1/users/login` | NO |
 | POST   | `api/v1/users/signup` | NO |
+| GET    | `api/v1/users/logout` | NO |
+| GET    | `api/v1/flops`      | NO |
 | POST   | `api/v1/flops/vote` | YES |
-| POST   | `api/v1/lifestyles` | YES |
 | POST   | `api/v1/flops`     | YES |
 | POST   | `api/v1/flops/remove/:id` | YES |
-| GET   | `api/v1/users/logout` | NO |
-| GET   | `api/v1/votes/:id` | NO |
+| GET    | `api/v1/votes/:id` | NO |
 
 If the authentication fails the API will respond with the following error:
 
