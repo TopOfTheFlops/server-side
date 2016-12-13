@@ -14,7 +14,7 @@ router.get('/logout', function(req, res){
 })
 
 //GET all users
-router.get('/', function (req, res) {
+router.get('/', ensureAuthenticated, function (req, res) {
   getAllUsers()
     .then(response => {
       var users = {
