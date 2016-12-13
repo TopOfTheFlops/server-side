@@ -6,7 +6,7 @@ const getAllLifestyles = () => knex('lifestyles')
 
 const getAllFlops = () => knex.select('flopId', 'lifestyleId', 'flops.userId', 'username', 'mediaURL', 'description').from('flops').leftJoin('users', 'flops.userId', 'users.userId')
 
-const getAllUsers = () => knex.select('userId', 'flopId', 'name', 'location', 'profilePic', 'bio').from('users')
+const getAllUsers = () => knex.select('userId', 'username', 'name', 'location', 'profilePic', 'bio').from('users')
 
 const getUserById = (id) => knex.select('userId', 'username', 'name', 'location', 'profilePic', 'bio').from('users').where('userId', id)
 
