@@ -4,7 +4,7 @@ var knex = Knex(knexConfig)
 
 const getAllLifestyles = () => knex('lifestyles')
 
-const getAllFlops = () => knex.select('flopId', 'lifestyleId', 'flops.userId', 'username', 'upvotes', 'downvotes', 'mediaURL', 'description').from('flops').leftJoin('users', 'flops.userId', 'users.userId')
+const getAllFlops = () => knex.select('flopId', 'lifestyleId', 'flops.userId', 'username', 'mediaURL', 'description').from('flops').leftJoin('users', 'flops.userId', 'users.userId')
 
 const getAllUsers = () => knex('users')
 
