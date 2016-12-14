@@ -1,37 +1,39 @@
 const express = require('express')
 const router = express.Router()
 
-const { getVotesById, getAllVotes, voteByFlopId } = require('../db/db')
+const { successMessage, errorMessage } = require('../db/responses')
+const { getVotesById, getAllVotes, voteByFlopId } = require('../db/votes')
 
 //POST vote by flop id
-router.post('/', function (req, res) {
+router.post('/', (req, res) => {
   voteByFlopId(req.body)
-    .then(response => {
-      return res.status(201).send('Vote added successfully')
-    })
-    .catch(error => {
-      console.log("Error downvoting", error)
-      return res.status(500).send('Error adding vote')
-    })
-
+    .then(response => res.status(201)
+        .json(successMessage('Vote added successfully'))
+    )
+    .catch(error => res.status(500)
+        .json(errorMessage('Error adding vote'))
+    )
 })
 
 //GET all votes
-router.get('/', function (req, res) {
+router.get('/', (req, res) => {
   getAllVotes()
-    .then(votes => {
-      res.json(votes)
-    })
-    .catch(err => console.log(err))
+    .then(votes => res.json(votes))
+    .catch(err => res.status(500)
+      .json(errorMessage('Error retrieving votes'))
+    )
 })
 
 //GET vote by id
-router.get('/:id', function (req, res) {
+router.get('/:id', (req, res) => {
   getVotesById(req.params.id)
     .then(votes => {
-      var toSend = {"votes": votes}
+      const toSend = {"votes": votes}
       res.json(toSend)
     })
+    .catch(err => res.status(500)
+      .json(errorMessage('Error retrieving vote'))
+    )
 })
 
 

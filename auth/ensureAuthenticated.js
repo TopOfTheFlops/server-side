@@ -1,7 +1,7 @@
-var express = require('express')
-var router = express.Router()
+const express = require('express')
+const router = express.Router()
 
-function ensureAuthenticated (req, res, next) {
+const ensureAuthenticated = (req, res, next) => {
   if (req.isAuthenticated()) {
     return next()
   }
