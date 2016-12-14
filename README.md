@@ -10,20 +10,21 @@ All the API responses come as JSON objects.
 
 Some of the API endpoints require authentication:
 
-| Method |         Endpoint          | Requires Auth |
-| ------ | ------------------------- | ------------- |
-| GET    | `api/v1/lifestyles`       | NO |
-| POST   | `api/v1/lifestyles`       | YES |
-| GET    | `api/v1/flops`            | NO |
-| POST   | `api/v1/flops`            | YES |
-| POST   | `api/v1/flops/remove/:id` | YES |
-| GET    | `api/v1/users/:id`        | NO |
-| POST   | `api/v1/users/login`      | NO |
-| POST   | `api/v1/users/signup`     | NO |
-| POST   | `api/v1/users/edit/:id`   | YES |
-| GET    | `api/v1/users/logout`     | NO |
-| POST   | `api/v1/votes`            | NO |
-| GET    | `api/v1/votes/:id`        | NO |
+| Method |             Endpoint            | Requires Auth |
+| ------ | ------------------------------- | ------------- |
+| GET    | `api/v1/lifestyles`             | NO |
+| POST   | `api/v1/lifestyles`             | YES |
+| POST   | `api/v1/lifestyles/remove/:id`  | YES |
+| GET    | `api/v1/flops`                  | NO |
+| POST   | `api/v1/flops`                  | YES |
+| POST   | `api/v1/flops/remove/:id`       | YES |
+| GET    | `api/v1/users/:id`              | NO |
+| POST   | `api/v1/users/login`            | NO |
+| POST   | `api/v1/users/signup`           | NO |
+| POST   | `api/v1/users/edit/:id`         | YES |
+| GET    | `api/v1/users/logout`           | NO |
+| POST   | `api/v1/votes`                  | NO |
+| GET    | `api/v1/votes/:id`              | NO |
 
 If the authentication fails the API will respond with the following error:
 
@@ -106,6 +107,21 @@ If the operation succeeds you will receive a success message back as follows:
   }
 }
 ```
+
+### DELETE to remove a lifestyle by ID
+
+- `[DELETE]` a lifestyle by id
+
+| Method | Endpoint | Usage | Returns |
+| ------ | -------- | ----- | ------- |
+| POST   | `api/v1/lifestyles/remove/:id` | Remove and individual lifestyle | Success message |
+
+* This action is IRREVERSIBLE
+
+* On success, the HTTP status code in the response header is 200 ('OK').
+* In case of server error, the header status code is a 5xx error code and the response body contains an error object.
+
+Using this endpoint you can remove an individual lifestyle by the ID.
 
 ### GET all flops (posts)
 

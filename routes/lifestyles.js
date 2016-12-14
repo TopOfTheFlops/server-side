@@ -1,6 +1,6 @@
 const express = require('express')
 const router = express.Router()
-const { getAllLifestyles, addNewLifestyle } = require('../db/lifestyles')
+const { getAllLifestyles, addNewLifestyle, deleteLifestyle } = require('../db/lifestyles')
 const { successMessage, errorMessage } = require('../db/responses')
 
 
@@ -18,7 +18,7 @@ const ensureAuthenticated  = (req, res, next) => {
   })
 }
 
-/* GET users listing. */
+// GET all lifestyles
 router.get('/', (req, res) => {
   getAllLifestyles()
     .then(lifestyles => res.json({lifestyles}))
@@ -43,5 +43,15 @@ router.post('/', ensureAuthenticated, (req, res) => {
   )
 })
 
+//DELETE a lifestyle
+router.post('/remove/:id', ensureAuthenticated, (req, res) => {
+  deleteLifestyle(req.params.id)
+    .then(response => res.status(200)
+      .json(successMessage('lifestyle deleted successfully'))
+    )
+    .catch(err => res.status(500)
+      .json(errorMessage('Unable to remove lifestyle'))
+  )
+})
 
 module.exports = router
