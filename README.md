@@ -10,20 +10,21 @@ All the API responses come as JSON objects.
 
 Some of the API endpoints require authentication:
 
-| Method | Endpoint | Requires Auth |
-| ------ | -------- | ------------- |
-| GET    | `api/v1/lifestyles` | NO |
-| POST   | `api/v1/lifestyles` | YES |
-| GET    | `api/v1/flops`      | NO |
-| POST   | `api/v1/flops`     | YES |
-| POST   | `api/v1/flops/remove/:id` | YES |
-| GET    | `api/v1/users/:id`  | NO |
-| POST   | `api/v1/users/login` | NO |
-| POST   | `api/v1/users/signup` | NO |
-| POST   | `api/v1/users/edit/:id` | YES |
-| GET    | `api/v1/users/logout` | NO |
-| GET    | `api/v1/votes/:id` | NO |
-| POST   | `api/v1/votes` | NO |
+| Method |             Endpoint            | Requires Auth |
+| ------ | ------------------------------- | ------------- |
+| GET    | `api/v1/lifestyles`             | NO |
+| POST   | `api/v1/lifestyles`             | YES |
+| POST   | `api/v1/lifestyles/remove/:id`  | YES |
+| GET    | `api/v1/flops`                  | NO |
+| POST   | `api/v1/flops`                  | YES |
+| POST   | `api/v1/flops/remove/:id`       | YES |
+| GET    | `api/v1/users/:id`              | NO |
+| POST   | `api/v1/users/login`            | NO |
+| POST   | `api/v1/users/signup`           | NO |
+| POST   | `api/v1/users/edit/:id`         | YES |
+| GET    | `api/v1/users/logout`           | NO |
+| POST   | `api/v1/votes`                  | NO |
+| GET    | `api/v1/votes/:id`              | NO |
 
 If the authentication fails the API will respond with the following error:
 
@@ -73,6 +74,54 @@ The get request will return an object with the key "lifestyles", containing an a
     ]
 }
 ```
+
+### POST to create a new Lifestyle (competition category)
+
+- `[POST]` create a new lifestyle
+
+| Method | Endpoint | Usage | Returns |
+| ------ | -------- | ----- | ------- |
+| POST   | `api/v1/lifestyles` | Create a new category on the competition | Success object |
+
+* On success, the HTTP status code in the response header is 201 ('Created').  
+* In case of server error, the header status code is a 5xx error code and the response body contains an error object.
+
+In order to add a new category to the competition you will have to send a request which includes the information in the body:
+
+```javascript
+{
+  title: "Perfect banana peel",
+  description: "Aim to peel a banana and have 0 strings left on it",
+  media: "imgur.com/dgsjkfg"
+}
+```
+
+If the operation succeeds you will receive a success message back as follows:
+
+```js
+{
+  "success":
+  {
+    "message": "Lifestyle board created succesfully",
+    "lifestyleId": 253
+  }
+}
+```
+
+### DELETE to remove a lifestyle by ID
+
+- `[DELETE]` a lifestyle by id
+
+| Method | Endpoint | Usage | Returns |
+| ------ | -------- | ----- | ------- |
+| POST   | `api/v1/lifestyles/remove/:id` | Remove and individual lifestyle | Success message |
+
+* This action is IRREVERSIBLE
+
+* On success, the HTTP status code in the response header is 200 ('OK').
+* In case of server error, the header status code is a 5xx error code and the response body contains an error object.
+
+Using this endpoint you can remove an individual lifestyle by the ID.
 
 ### GET all flops (posts)
 
@@ -126,6 +175,54 @@ The get request will return an object with the key "flops", containing an array 
   ]
 }
 ```
+### POST to create a new flop
+
+- `[POST]` create a new flop
+
+| Method | Endpoint | Usage | Returns |
+| ------ | -------- | ----- | ------- |
+| POST   | `api/v1/flops` | Create a new individual post| Success object |
+
+* On success, the HTTP status code in the response header is 201 ('Created').  
+* In case of server error, the header status code is a 5xx error code and the response body contains an error object.
+
+In order to add a new post (flop) to the competition you will have to send a request which includes the information in the body:
+
+```javascript
+{
+  userId: 32,
+  mediaURL: "imgur.com/hkdskj",
+  description: "I can do this with my eyes closed",
+  lifestyleId:23
+}
+```
+
+If the operation succeeds you will receive a success message back as follows:
+
+```JSON
+{
+  "success":
+    {
+      "message": "Flop added succesfully",
+      "flopId": 232
+    }
+}
+```
+
+### DELETE to remove a flop by ID
+
+- `[DELETE]` a flop by id
+
+| Method | Endpoint | Usage | Returns |
+| ------ | -------- | ----- | ------- |
+| POST   | `api/v1/flops/remove/:id` | Remove and individual flop | Success message |
+
+* This action is IRREVERSIBLE
+
+* On success, the HTTP status code in the response header is 200 ('OK').
+* In case of server error, the header status code is a 5xx error code and the response body contains an error object.
+
+Using this endpoint you can remove an individual flop by the ID.
 
 ### GET a flopper (user)
 
@@ -222,87 +319,29 @@ To create a new user, the API is expecting an object on the body of the request 
 ```
 If the request is successful you will receive a success code 201
 
-### POST to create a new Lifestyle (competition category)
+### Edit a user profile
 
-- `[POST]` create a new lifestyle
+- `[POST]` edit a user profile
 
 | Method | Endpoint | Usage | Returns |
 | ------ | -------- | ----- | ------- |
-| POST   | `api/v1/lifestyles` | Create a new category on the competition | Success object |
+| POST   | `api/v1/users/edit/:id` | modifies an existing user profile | Success object / Error |
 
-* On success, the HTTP status code in the response header is 201 ('Created').  
+* On success, the HTTP status code in the response header is 201 ('Created').
 * In case of server error, the header status code is a 5xx error code and the response body contains an error object.
 
-In order to add a new category to the competition you will have to send a request which includes the information in the body:
-
-```javascript
-{
-  title: "Perfect banana peel",
-  description: "Aim to peel a banana and have 0 strings left on it",
-  media: "imgur.com/dgsjkfg"
-}
-```
-
-If the operation succeeds you will receive a success message back as follows:
+To modify a user profile, the API is expecting an object on the body of the request that contains the following information:
 
 ```js
 {
-  "success":
-    {
-      "message": "Lifestyle board created succesfully",
-      "lifestyleId": 253
-    }
+  password: "bananas",
+  location: "Wellington",
+  profilePic: "imgur.com/sdhklfhhjk",
+  bio: "I like voting for stuff"
 }
 ```
+If the request is successful you will receive a success code 201
 
-### POST to create a new flop
-
-- `[POST]` create a new flop
-
-| Method | Endpoint | Usage | Returns |
-| ------ | -------- | ----- | ------- |
-| POST   | `api/v1/flops` | Create a new individual post| Success object |
-
-* On success, the HTTP status code in the response header is 201 ('Created').  
-* In case of server error, the header status code is a 5xx error code and the response body contains an error object.
-
-In order to add a new post (flop) to the competition you will have to send a request which includes the information in the body:
-
-```javascript
-{
-  userId: 32,
-  mediaURL: "imgur.com/hkdskj",
-  description: "I can do this with my eyes closed",
-  lifestyleId:23
-}
-```
-
-If the operation succeeds you will receive a success message back as follows:
-
-```JSON
-{
-  "success":
-    {
-      "message": "Flop added succesfully",
-      "flopId": 232
-    }
-}
-```
-
-### DELETE to remove a flop by ID
-
-- `[DELETE]` a flop by id
-
-| Method | Endpoint | Usage | Returns |
-| ------ | -------- | ----- | ------- |
-| POST   | `api/v1/flops/remove/:id` | Remove and individual flop | Success message |
-
-* This action is IRREVERSIBLE
-
-* On success, the HTTP status code in the response header is 200 ('OK').
-* In case of server error, the header status code is a 5xx error code and the response body contains an error object.
-
-Using this endpoint you can remove an individual flop by the ID.
 
 ### GET to log out a user
 
@@ -396,29 +435,6 @@ This what an up vote will look like for flopId: 3 and userId: 5
   "downvote": 0
 }
 ```
-
-### Edit a user profile
-
-- `[POST]` edit a user profile
-
-| Method | Endpoint | Usage | Returns |
-| ------ | -------- | ----- | ------- |
-| POST   | `api/v1/users/edit/:id` | modifies an existing user profile | Success object / Error |
-
-* On success, the HTTP status code in the response header is 201 ('Created').
-* In case of server error, the header status code is a 5xx error code and the response body contains an error object.
-
-To modify a user profile, the API is expecting an object on the body of the request that contains the following information:
-
-```js
-{
-  password: "bananas",
-  location: "Wellington",
-  profilePic: "imgur.com/sdhklfhhjk",
-  bio: "I like voting for stuff"
-}
-```
-If the request is successful you will receive a success code 201
 
 ## Error messages and meanings
 

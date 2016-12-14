@@ -1,22 +1,22 @@
-var express = require('express')
-var path = require('path')
-var cookieParser = require('cookie-parser')
-var bodyParser = require('body-parser')
-var cors = require('cors')
-var corsOptions = {
+const express = require('express')
+const path = require('path')
+const cookieParser = require('cookie-parser')
+const bodyParser = require('body-parser')
+const cors = require('cors')
+const corsOptions = {
   origin: true,
   methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
   preflightContinue: false,
   credentials: true
 }
-var passport = require('./auth/passportSetup')
+const passport = require('./auth/passportSetup')
 
-var users = require('./routes/users')
-var lifestyles = require('./routes/lifestyles')
-var flops = require('./routes/flops')
-var votes = require('./routes/votes')
+const users = require('./routes/users')
+const lifestyles = require('./routes/lifestyles')
+const flops = require('./routes/flops')
+const votes = require('./routes/votes')
 
-var app = express()
+const app = express()
 
 app.use(cors(corsOptions))
 app.use(bodyParser.json())

@@ -1,16 +1,16 @@
-var passport = require('passport')
-var Strategy = require('passport-local').Strategy
-var hasher = require('./hasher')
+const passport = require('passport')
+const Strategy = require('passport-local').Strategy
+const hasher = require('./hasher')
 
-var db = require('../db/db')
+const { getUserByUsername, getUserById } = require('../db/users')
 
-passport.use(new Strategy(function (username, password, done){
-  db.getUserByUsername(username)
-    .then(function(user){
+passport.use(new Strategy((username, password, done) => {
+  getUserByUsername(username)
+    .then(user => {
       if(user.length === 0){
         done(null, false, { message: 'Incorrect username'})
       } else {
-        hasher.checkHash(password, user[0].password, function(valid){
+        hasher.checkHash(password, user[0].password, (valid) => {
           if(valid){
             done(null, user[0])
           } else {
@@ -19,22 +19,20 @@ passport.use(new Strategy(function (username, password, done){
         })
       }
     })
-    .catch(function(err){
+    .catch(err => {
       console.log('Error connecting to the database', err)
       done(err)
     })
 }))
 
-passport.serializeUser(function(user, done){
+passport.serializeUser((user, done) => {
   done(null, user.userId)
 })
 
-passport.deserializeUser(function (id, done){
-  db.getUserById(id)
-    .then(function(user){
-      done(null, user[0])
-    })
-    .catch(function(err){
+passport.deserializeUser((id, done) => {
+  getUserById(id)
+    .then(user => done(null, user[0]))
+    .catch(err => {
       console.log('Error retrieving the deserialized user from the DB')
       done(err)
     })
