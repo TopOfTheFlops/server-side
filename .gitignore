@@ -38,3 +38,4 @@ jspm_packages
 
 #Not track sqlite db
 *.sqlite
+dev.sqlite3
